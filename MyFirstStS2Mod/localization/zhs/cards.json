@@ -1,1 +1,116 @@
-{}
+{
+  "MY_FIRST_ST_S2_MOD_CARD_SHA.title": "杀",
+  "MY_FIRST_ST_S2_MOD_CARD_SHA.description": "造成{Damage:diff()}点伤害。\n每回合只能打出1张“杀”。",
+  "MYFIRSTSTS2MOD_CARD_SHA.title": "杀",
+  "MYFIRSTSTS2MOD_CARD_SHA.description": "造成{Damage:diff()}点伤害。\n每回合只能打出1张“杀”。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_SHAN.title": "闪",
+  "MY_FIRST_ST_S2_MOD_CARD_SHAN.description": "获得{Block:diff()}点格挡。",
+  "MYFIRSTSTS2MOD_CARD_SHAN.title": "闪",
+  "MYFIRSTSTS2MOD_CARD_SHAN.description": "获得{Block:diff()}点格挡。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_TAO.title": "桃",
+  "MY_FIRST_ST_S2_MOD_CARD_TAO.description": "获得{IfUpgraded:show:4|3}层再生。\n获得{IfUpgraded:show:4|3}层覆甲。",
+  "MYFIRSTSTS2MOD_CARD_TAO.title": "桃",
+  "MYFIRSTSTS2MOD_CARD_TAO.description": "获得{IfUpgraded:show:4|3}层再生。\n获得{IfUpgraded:show:4|3}层覆甲。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_JIU.title": "酒",
+  "MY_FIRST_ST_S2_MOD_CARD_JIU.description": "本回合你的下一张“杀”造成的伤害翻倍。\n获得1层[red]醉酒[/red]。",
+  "MYFIRSTSTS2MOD_CARD_JIU.title": "酒",
+  "MYFIRSTSTS2MOD_CARD_JIU.description": "本回合你的下一张“杀”造成的伤害翻倍。\n获得1层[red]醉酒[/red]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_DUEL.title": "决斗",
+  "MY_FIRST_ST_S2_MOD_CARD_DUEL.description": "如果你手牌中有“杀”，无视格挡造成{Damage:diff()}点伤害。\n否则，给予敌人{WeakPower:diff()}层[gold]虚弱[/gold]。",
+  "MYFIRSTSTS2MOD_CARD_DUEL.title": "决斗",
+  "MYFIRSTSTS2MOD_CARD_DUEL.description": "如果你手牌中有“杀”，无视格挡造成{Damage:diff()}点伤害。\n否则，给予敌人{WeakPower:diff()}层[gold]虚弱[/gold]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_FIRE_SHA.title": "火杀",
+  "MY_FIRST_ST_S2_MOD_CARD_FIRE_SHA.description": "造成{Damage:diff()}点伤害。\n给予敌人{ScorchPower:diff()}层[red]灼烧[/red]。\n每回合只能打出1张“杀”。",
+  "MYFIRSTSTS2MOD_CARD_FIRE_SHA.title": "火杀",
+  "MYFIRSTSTS2MOD_CARD_FIRE_SHA.description": "造成{Damage:diff()}点伤害。\n给予敌人{ScorchPower:diff()}层[red]灼烧[/red]。\n每回合只能打出1张“杀”。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_THUNDER_SHA.title": "雷杀",
+  "MY_FIRST_ST_S2_MOD_CARD_THUNDER_SHA.description": "造成{Damage:diff()}点伤害。{IfUpgraded:show:\n抽1张牌。|}\n如果这张牌对敌人造成了生命伤害，获得{energyPrefix:energyIcons(1)}。\n每回合只能打出1张“杀”。",
+  "MYFIRSTSTS2MOD_CARD_THUNDER_SHA.title": "雷杀",
+  "MYFIRSTSTS2MOD_CARD_THUNDER_SHA.description": "造成{Damage:diff()}点伤害。{IfUpgraded:show:\n抽1张牌。|}\n如果这张牌对敌人造成了生命伤害，获得{energyPrefix:energyIcons(1)}。\n每回合只能打出1张“杀”。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_ICE_SHA.title": "冰杀",
+  "MY_FIRST_ST_S2_MOD_CARD_ICE_SHA.description": "造成{Damage:diff()}点伤害。\n给予敌人{ColdPower:diff()}层[blue]寒冷[/blue]。\n每回合只能打出1张“杀”。",
+  "MYFIRSTSTS2MOD_CARD_ICE_SHA.title": "冰杀",
+  "MYFIRSTSTS2MOD_CARD_ICE_SHA.description": "造成{Damage:diff()}点伤害。\n给予敌人{ColdPower:diff()}层[blue]寒冷[/blue]。\n每回合只能打出1张“杀”。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_WU_ZHONG_SHENG_YOU.title": "无中生有",
+  "MY_FIRST_ST_S2_MOD_CARD_WU_ZHONG_SHENG_YOU.description": "抽{Cards:diff()}张牌。",
+  "MYFIRSTSTS2MOD_CARD_WU_ZHONG_SHENG_YOU.title": "无中生有",
+  "MYFIRSTSTS2MOD_CARD_WU_ZHONG_SHENG_YOU.description": "抽{Cards:diff()}张牌。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_GUO_HE_CHAI_QIAO.title": "过河拆桥",
+  "MY_FIRST_ST_S2_MOD_CARD_GUO_HE_CHAI_QIAO.description": "如果其本回合意图为攻击，给予{WeakPower:diff()}层[gold]虚弱[/gold]。\n否则，给予{VulnerablePower:diff()}层[gold]易伤[/gold]。",
+  "MYFIRSTSTS2MOD_CARD_GUO_HE_CHAI_QIAO.title": "过河拆桥",
+  "MYFIRSTSTS2MOD_CARD_GUO_HE_CHAI_QIAO.description": "如果其本回合意图为攻击，给予{WeakPower:diff()}层[gold]虚弱[/gold]。\n否则，给予{VulnerablePower:diff()}层[gold]易伤[/gold]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_SHUN_SHOU_QIAN_YANG.title": "顺手牵羊",
+  "MY_FIRST_ST_S2_MOD_CARD_SHUN_SHOU_QIAN_YANG.description": "复制其所有正面状态。{IfUpgraded:show:\n抽1张牌。|}",
+  "MYFIRSTSTS2MOD_CARD_SHUN_SHOU_QIAN_YANG.title": "顺手牵羊",
+  "MYFIRSTSTS2MOD_CARD_SHUN_SHOU_QIAN_YANG.description": "复制其所有正面状态。{IfUpgraded:show:\n抽1张牌。|}",
+
+  "MY_FIRST_ST_S2_MOD_CARD_WAN_JIAN_QI_FA.title": "万箭齐发",
+  "MY_FIRST_ST_S2_MOD_CARD_WAN_JIAN_QI_FA.description": "对所有敌人造成X+1次伤害。\n每次伤害为2 + 你手牌中“闪”的数量 × {IfUpgraded:show:3|2}。",
+  "MYFIRSTSTS2MOD_CARD_WAN_JIAN_QI_FA.title": "万箭齐发",
+  "MYFIRSTSTS2MOD_CARD_WAN_JIAN_QI_FA.description": "对所有敌人造成X+1次伤害。\n每次伤害为2 + 你手牌中“闪”的数量 × {IfUpgraded:show:3|2}。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_NAN_MAN_RU_QIN.title": "南蛮入侵",
+  "MY_FIRST_ST_S2_MOD_CARD_NAN_MAN_RU_QIN.description": "需要手牌中有“杀”才能打出。\n消耗1张手牌中的“杀”。\n对所有敌人造成{Damage:diff()}点伤害。",
+  "MYFIRSTSTS2MOD_CARD_NAN_MAN_RU_QIN.title": "南蛮入侵",
+  "MYFIRSTSTS2MOD_CARD_NAN_MAN_RU_QIN.description": "需要手牌中有“杀”才能打出。\n消耗1张手牌中的“杀”。\n对所有敌人造成{Damage:diff()}点伤害。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_HUO_GONG.title": "火攻",
+  "MY_FIRST_ST_S2_MOD_CARD_HUO_GONG.description": "给予敌人{ScorchPower:diff()}层[red]灼烧[/red]。",
+  "MYFIRSTSTS2MOD_CARD_HUO_GONG.title": "火攻",
+  "MYFIRSTSTS2MOD_CARD_HUO_GONG.description": "给予敌人{ScorchPower:diff()}层[red]灼烧[/red]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_YIN_RAN.title": "引燃",
+  "MY_FIRST_ST_S2_MOD_CARD_YIN_RAN.description": "本回合你的下一张攻击牌额外给予目标{IfUpgraded:show:5|3}层[red]灼烧[/red]。",
+  "MYFIRSTSTS2MOD_CARD_YIN_RAN.title": "引燃",
+  "MYFIRSTSTS2MOD_CARD_YIN_RAN.description": "本回合你的下一张攻击牌额外给予目标{IfUpgraded:show:5|3}层[red]灼烧[/red]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_YU_JIN.title": "余烬",
+  "MY_FIRST_ST_S2_MOD_CARD_YU_JIN.description": "如果目标有[red]灼烧[/red]，抽{Cards:diff()}张牌。\n给予敌人{ScorchPower:diff()}层[red]灼烧[/red]。",
+  "MYFIRSTSTS2MOD_CARD_YU_JIN.title": "余烬",
+  "MYFIRSTSTS2MOD_CARD_YU_JIN.description": "如果目标有[red]灼烧[/red]，抽{Cards:diff()}张牌。\n给予敌人{ScorchPower:diff()}层[red]灼烧[/red]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_YIN_HUO.title": "引火",
+  "MY_FIRST_ST_S2_MOD_CARD_YIN_HUO.description": "给予一名敌人{IfUpgraded:show:3|2}层[red]灼烧[/red]。\n如果目标有[red]灼烧[/red]，改为给予所有敌人{IfUpgraded:show:4|3}层[red]灼烧[/red]。",
+  "MYFIRSTSTS2MOD_CARD_YIN_HUO.title": "引火",
+  "MYFIRSTSTS2MOD_CARD_YIN_HUO.description": "给予一名敌人{IfUpgraded:show:3|2}层[red]灼烧[/red]。\n如果目标有[red]灼烧[/red]，改为给予所有敌人{IfUpgraded:show:4|3}层[red]灼烧[/red]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_DONG_FENG.title": "东风",
+  "MY_FIRST_ST_S2_MOD_CARD_DONG_FENG.description": "将敌人的[red]灼烧[/red]层数翻倍。",
+  "MYFIRSTSTS2MOD_CARD_DONG_FENG.title": "东风",
+  "MYFIRSTSTS2MOD_CARD_DONG_FENG.description": "将敌人的[red]灼烧[/red]层数翻倍。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_CHI_BI.title": "赤壁",
+  "MY_FIRST_ST_S2_MOD_CARD_CHI_BI.description": "每回合开始时，给予所有敌人{ChiBiPower:diff()}层[red]灼烧[/red]。",
+  "MYFIRSTSTS2MOD_CARD_CHI_BI.title": "赤壁",
+  "MYFIRSTSTS2MOD_CARD_CHI_BI.description": "每回合开始时，给予所有敌人{ChiBiPower:diff()}层[red]灼烧[/red]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_LIE_HUO_GONG_XIN.title": "烈火攻心",
+  "MY_FIRST_ST_S2_MOD_CARD_LIE_HUO_GONG_XIN.description": "敌人失去等同于其[red]灼烧[/red]层数一半的生命，最多{IfUpgraded:show:24|12}点。",
+  "MYFIRSTSTS2MOD_CARD_LIE_HUO_GONG_XIN.title": "烈火攻心",
+  "MYFIRSTSTS2MOD_CARD_LIE_HUO_GONG_XIN.description": "敌人失去等同于其[red]灼烧[/red]层数一半的生命，最多{IfUpgraded:show:24|12}点。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_HUO_MU.title": "火幕",
+  "MY_FIRST_ST_S2_MOD_CARD_HUO_MU.description": "如果目标有[red]灼烧[/red]，获得等同于其[red]灼烧[/red]层数的格挡，最多{Block:diff()}点。",
+  "MYFIRSTSTS2MOD_CARD_HUO_MU.title": "火幕",
+  "MYFIRSTSTS2MOD_CARD_HUO_MU.description": "如果目标有[red]灼烧[/red]，获得等同于其[red]灼烧[/red]层数的格挡，最多{Block:diff()}点。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_CHI_SHOU.title": "炽守",
+  "MY_FIRST_ST_S2_MOD_CARD_CHI_SHOU.description": "本回合每当你获得格挡时，给予随机敌人{ChiShouPower:diff()}层[red]灼烧[/red]。\n每回合最多触发3次。",
+  "MYFIRSTSTS2MOD_CARD_CHI_SHOU.title": "炽守",
+  "MYFIRSTSTS2MOD_CARD_CHI_SHOU.description": "本回合每当你获得格挡时，给予随机敌人{ChiShouPower:diff()}层[red]灼烧[/red]。\n每回合最多触发3次。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_FENG_HUO_LIAN_YING.title": "烽火连营",
+  "MY_FIRST_ST_S2_MOD_CARD_FENG_HUO_LIAN_YING.description": "每当敌人受到[red]灼烧[/red]伤害时，获得{FengHuoLianYingPower:diff()}点格挡。",
+  "MYFIRSTSTS2MOD_CARD_FENG_HUO_LIAN_YING.title": "烽火连营",
+  "MYFIRSTSTS2MOD_CARD_FENG_HUO_LIAN_YING.description": "每当敌人受到[red]灼烧[/red]伤害时，获得{FengHuoLianYingPower:diff()}点格挡。"
+}

@@ -1,0 +1,48 @@
+using System.Reflection;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Nodes.Cards;
+using MyFirstStS2Mod.Scripts.Cards;
+
+namespace MyFirstStS2Mod.Scripts.Patches;
+
+[HarmonyPatch(typeof(NCardPlay), "TryPlayCard", [typeof(Creature)])]
+internal static class CardPlayRestrictionPatch
+{
+    private static readonly Func<NCardPlay, CardModel?> GetCard =
+        AccessTools.MethodDelegate<Func<NCardPlay, CardModel?>>(
+            AccessTools.DeclaredPropertyGetter(typeof(NCardPlay), "Card"));
+
+    private static readonly MethodInfo CancelPlayCardMethod =
+        AccessTools.DeclaredMethod(typeof(NCardPlay), "CancelPlayCard")!;
+
+    public static bool Prefix(NCardPlay __instance, Creature? target)
+    {
+        var card = GetCard(__instance);
+        if (card is null)
+        {
+            return true;
+        }
+
+        if (card is ShaCard && BattleState.HasPlayedShaThisTurn(card))
+        {
+            CancelPlayCardMethod.Invoke(__instance, []);
+            return false;
+        }
+
+        if (card is Jiu && card.Owner is not null && BattleState.IsDrunk(card.Owner))
+        {
+            CancelPlayCardMethod.Invoke(__instance, []);
+            return false;
+        }
+
+        if (card is NanManRuQin && !RuntimeReflection.HasCardInHand<ShaCard>(card.Owner))
+        {
+            CancelPlayCardMethod.Invoke(__instance, []);
+            return false;
+        }
+
+        return true;
+    }
+}

@@ -1,1 +1,43 @@
-{}
+{
+  "MY_FIRST_ST_S2_MOD_POWER_DRUNK_POWER.title": "醉酒",
+  "MY_FIRST_ST_S2_MOD_POWER_DRUNK_POWER.description": "你不能使用“酒”。下回合你受到的未被格挡的攻击伤害+1。",
+  "MY_FIRST_ST_S2_MOD_POWER_DRUNK_POWER.smartDescription": "你不能使用“酒”。下回合你受到的未被格挡的攻击伤害[blue]+{Amount}[/blue]。",
+  "MYFIRSTSTS2MOD_POWER_DRUNK_POWER.title": "醉酒",
+  "MYFIRSTSTS2MOD_POWER_DRUNK_POWER.description": "你不能使用“酒”。下回合你受到的未被格挡的攻击伤害+1。",
+  "MYFIRSTSTS2MOD_POWER_DRUNK_POWER.smartDescription": "你不能使用“酒”。下回合你受到的未被格挡的攻击伤害[blue]+{Amount}[/blue]。",
+
+  "MY_FIRST_ST_S2_MOD_POWER_SCORCH_POWER.title": "灼烧",
+  "MY_FIRST_ST_S2_MOD_POWER_SCORCH_POWER.description": "回合结束时，移除等同于层数的生命值。生效后，移除一半层数，向下取整。",
+  "MY_FIRST_ST_S2_MOD_POWER_SCORCH_POWER.smartDescription": "回合结束时，移除[red]{Amount}[/red]点生命值。生效后，移除一半层数，向下取整。",
+  "MYFIRSTSTS2MOD_POWER_SCORCH_POWER.title": "灼烧",
+  "MYFIRSTSTS2MOD_POWER_SCORCH_POWER.description": "回合结束时，移除等同于层数的生命值。生效后，移除一半层数，向下取整。",
+  "MYFIRSTSTS2MOD_POWER_SCORCH_POWER.smartDescription": "回合结束时，移除[red]{Amount}[/red]点生命值。生效后，移除一半层数，向下取整。",
+
+  "MY_FIRST_ST_S2_MOD_POWER_COLD_POWER.title": "寒冷",
+  "MY_FIRST_ST_S2_MOD_POWER_COLD_POWER.description": "下次造成攻击伤害时，伤害降低等同于层数。生效后移除全部寒冷。",
+  "MY_FIRST_ST_S2_MOD_POWER_COLD_POWER.smartDescription": "下次造成攻击伤害时，伤害降低[blue]{Amount}[/blue]。生效后移除全部寒冷。",
+  "MYFIRSTSTS2MOD_POWER_COLD_POWER.title": "寒冷",
+  "MYFIRSTSTS2MOD_POWER_COLD_POWER.description": "下次造成攻击伤害时，伤害降低等同于层数。生效后移除全部寒冷。",
+  "MYFIRSTSTS2MOD_POWER_COLD_POWER.smartDescription": "下次造成攻击伤害时，伤害降低[blue]{Amount}[/blue]。生效后移除全部寒冷。",
+
+  "MY_FIRST_ST_S2_MOD_POWER_CHI_BI_POWER.title": "赤壁",
+  "MY_FIRST_ST_S2_MOD_POWER_CHI_BI_POWER.description": "每回合开始时，给予所有敌人[red]{Amount}[/red]层灼烧。",
+  "MY_FIRST_ST_S2_MOD_POWER_CHI_BI_POWER.smartDescription": "每回合开始时，给予所有敌人[red]{Amount}[/red]层灼烧。",
+  "MYFIRSTSTS2MOD_POWER_CHI_BI_POWER.title": "赤壁",
+  "MYFIRSTSTS2MOD_POWER_CHI_BI_POWER.description": "每回合开始时，给予所有敌人[red]{Amount}[/red]层灼烧。",
+  "MYFIRSTSTS2MOD_POWER_CHI_BI_POWER.smartDescription": "每回合开始时，给予所有敌人[red]{Amount}[/red]层灼烧。",
+
+  "MY_FIRST_ST_S2_MOD_POWER_CHI_SHOU_POWER.title": "炽守",
+  "MY_FIRST_ST_S2_MOD_POWER_CHI_SHOU_POWER.description": "本回合每当你获得格挡时，给予随机敌人[red]{Amount}[/red]层灼烧。每回合最多触发3次。",
+  "MY_FIRST_ST_S2_MOD_POWER_CHI_SHOU_POWER.smartDescription": "本回合每当你获得格挡时，给予随机敌人[red]{Amount}[/red]层灼烧。每回合最多触发3次。",
+  "MYFIRSTSTS2MOD_POWER_CHI_SHOU_POWER.title": "炽守",
+  "MYFIRSTSTS2MOD_POWER_CHI_SHOU_POWER.description": "本回合每当你获得格挡时，给予随机敌人[red]{Amount}[/red]层灼烧。每回合最多触发3次。",
+  "MYFIRSTSTS2MOD_POWER_CHI_SHOU_POWER.smartDescription": "本回合每当你获得格挡时，给予随机敌人[red]{Amount}[/red]层灼烧。每回合最多触发3次。",
+
+  "MY_FIRST_ST_S2_MOD_POWER_FENG_HUO_LIAN_YING_POWER.title": "烽火连营",
+  "MY_FIRST_ST_S2_MOD_POWER_FENG_HUO_LIAN_YING_POWER.description": "每当敌人受到灼烧伤害时，获得[blue]{Amount}[/blue]点格挡。",
+  "MY_FIRST_ST_S2_MOD_POWER_FENG_HUO_LIAN_YING_POWER.smartDescription": "每当敌人受到灼烧伤害时，获得[blue]{Amount}[/blue]点格挡。",
+  "MYFIRSTSTS2MOD_POWER_FENG_HUO_LIAN_YING_POWER.title": "烽火连营",
+  "MYFIRSTSTS2MOD_POWER_FENG_HUO_LIAN_YING_POWER.description": "每当敌人受到灼烧伤害时，获得[blue]{Amount}[/blue]点格挡。",
+  "MYFIRSTSTS2MOD_POWER_FENG_HUO_LIAN_YING_POWER.smartDescription": "每当敌人受到灼烧伤害时，获得[blue]{Amount}[/blue]点格挡。"
+}

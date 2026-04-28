@@ -1,4 +1,5 @@
 using System.Reflection;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
 using STS2RitsuLib;
 using STS2RitsuLib.Interop;
@@ -14,6 +15,8 @@ public class Entry
     public static void Init()
     {
         var assembly = Assembly.GetExecutingAssembly();
+        var harmony = new Harmony("sts2.local.myfirststs2mod");
+        harmony.PatchAll(assembly);
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
         Logger.LogInfo("MyFirstStS2Mod initialized.");
