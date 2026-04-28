@@ -1,0 +1,19 @@
+; Engine configuration file.
+; It is best edited using the editor and not directly.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="MyFirstStS2Mod"
+config/features=PackedStringArray("4.5", "C#", "Mobile")
+config/icon="res://icon.svg"
+run/main_scene=""
+
+[dotnet]
+
+project/assembly_name="MyFirstStS2Mod"

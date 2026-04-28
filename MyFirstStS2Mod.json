@@ -1,0 +1,11 @@
+{
+  "id": "MyFirstStS2Mod",
+  "name": "我的第一个尖塔2 Mod",
+  "author": "YourName",
+  "description": "A starter Slay the Spire 2 mod scaffold.",
+  "version": "0.1.0",
+  "has_pck": true,
+  "has_dll": true,
+  "dependencies": ["STS2-RitsuLib"],
+  "affects_gameplay": true
+}
