@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MyFirstStS2Mod.Scripts.Cards;
+using MyFirstStS2Mod.Scripts.Equipment;
 
 namespace MyFirstStS2Mod.Scripts.Patches;
 
@@ -25,7 +26,9 @@ internal static class CardPlayRestrictionPatch
             return true;
         }
 
-        if (card is ShaCard && BattleState.HasPlayedShaThisTurn(card))
+        if (card is ShaCard
+            && (card.Owner is null || EquipmentQueries.GetEquipped<ZhuGeLianNu>(card.Owner, EquipmentSlotType.Weapon) is null)
+            && BattleState.HasPlayedShaThisTurn(card))
         {
             CancelPlayCardMethod.Invoke(__instance, []);
             return false;

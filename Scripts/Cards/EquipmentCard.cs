@@ -6,6 +6,8 @@ namespace MyFirstStS2Mod.Scripts.Cards;
 
 public abstract class EquipmentCard : MyFirstCard
 {
+    private static readonly CardType ResolvedEquipmentCardType = ResolveEquipmentCardType();
+
     public abstract EquipmentSlotType SlotType { get; }
 
     protected EquipmentCard(
@@ -13,9 +15,7 @@ public abstract class EquipmentCard : MyFirstCard
         CardRarity rarity,
         TargetType targetType = TargetType.None,
         bool shouldShowInCardLibrary = true)
-        // Game-side Equipment type is not available in the current offline setup.
-        // Keep a dedicated base class so future migration to a native enum stays localized.
-        : base(energyCost, CardType.Power, rarity, targetType, shouldShowInCardLibrary)
+        : base(energyCost, ResolvedEquipmentCardType, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
@@ -42,6 +42,11 @@ public abstract class EquipmentCard : MyFirstCard
         return Task.CompletedTask;
     }
 
+    // Equipment cards follow the current design rule: they do not participate in card upgrades.
+    protected sealed override void OnUpgrade()
+    {
+    }
+
     internal Task HandleEquipped()
     {
         return OnEquipped();
@@ -50,5 +55,12 @@ public abstract class EquipmentCard : MyFirstCard
     internal Task HandleUnequipped()
     {
         return OnUnequipped();
+    }
+
+    private static CardType ResolveEquipmentCardType()
+    {
+        return Enum.TryParse<CardType>("Equipment", out var equipmentType)
+            ? equipmentType
+            : CardType.Power;
     }
 }

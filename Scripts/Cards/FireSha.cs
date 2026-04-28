@@ -27,14 +27,9 @@ public class FireSha : ShaCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DealShaDamage(choiceContext, cardPlay, ResolveShaDamage());
+        var result = await DealShaDamage(choiceContext, cardPlay, ResolveShaDamage(cardPlay.Target!));
         await PowerCmd.Apply<Powers.ScorchPower>(cardPlay.Target!, _scorchAmount, Owner, this);
-
-        var extraScorch = BattleState.TryConsumeNextAttackExtraScorch(Owner);
-        if (extraScorch > 0)
-        {
-            await PowerCmd.Apply<Powers.ScorchPower>(cardPlay.Target!, extraScorch, Owner, this);
-        }
+        await ApplyCommonShaScorch(choiceContext, result.Target);
     }
 
     protected override void OnUpgrade()

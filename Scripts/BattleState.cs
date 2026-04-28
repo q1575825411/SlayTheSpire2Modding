@@ -16,12 +16,31 @@ internal static class BattleState
 
     private sealed class CreatureState
     {
+        public int TurnToken { get; set; } = int.MinValue;
         public bool NextShaDealsDoubleDamage { get; set; }
         public int NextAttackExtraScorch { get; set; }
+        public int ManualShaUsesThisTurn { get; set; }
+        public bool QingLongTriggeredThisTurn { get; set; }
         public DrunkState Drunk { get; set; }
     }
 
     private static readonly ConditionalWeakTable<object, CreatureState> CreatureStates = new();
+
+    private static CreatureState GetState(object owner, object? combatState)
+    {
+        var state = CreatureStates.GetOrCreateValue(owner);
+        var turnToken = RuntimeReflection.GetCombatTurnToken(combatState);
+        if (state.TurnToken != turnToken)
+        {
+            state.TurnToken = turnToken;
+            state.NextShaDealsDoubleDamage = false;
+            state.NextAttackExtraScorch = 0;
+            state.ManualShaUsesThisTurn = 0;
+            state.QingLongTriggeredThisTurn = false;
+        }
+
+        return state;
+    }
 
     public static bool HasPlayedShaThisTurn(CardModel card)
     {
@@ -33,7 +52,9 @@ internal static class BattleState
             return false;
         }
 
-        return history.CardPlaysFinished.Any(entry =>
+        var state = GetState(owner, combat);
+
+        return state.ManualShaUsesThisTurn > 0 || history.CardPlaysFinished.Any(entry =>
             entry.HappenedThisTurn(combat)
             && entry.CardPlay.Card is Cards.ShaCard
             && entry.CardPlay.Card.Owner == owner);
@@ -41,12 +62,12 @@ internal static class BattleState
 
     public static void SetNextShaDealsDoubleDamage(object owner)
     {
-        CreatureStates.GetOrCreateValue(owner).NextShaDealsDoubleDamage = true;
+        GetState(owner, RuntimeReflection.GetCombatState(owner)).NextShaDealsDoubleDamage = true;
     }
 
     public static bool TryConsumeNextShaDealsDoubleDamage(object owner)
     {
-        var state = CreatureStates.GetOrCreateValue(owner);
+        var state = GetState(owner, RuntimeReflection.GetCombatState(owner));
         if (!state.NextShaDealsDoubleDamage)
         {
             return false;
@@ -87,14 +108,31 @@ internal static class BattleState
 
     public static void SetNextAttackExtraScorch(object owner, int amount)
     {
-        CreatureStates.GetOrCreateValue(owner).NextAttackExtraScorch = amount;
+        GetState(owner, RuntimeReflection.GetCombatState(owner)).NextAttackExtraScorch = amount;
     }
 
     public static int TryConsumeNextAttackExtraScorch(object owner)
     {
-        var state = CreatureStates.GetOrCreateValue(owner);
+        var state = GetState(owner, RuntimeReflection.GetCombatState(owner));
         var amount = state.NextAttackExtraScorch;
         state.NextAttackExtraScorch = 0;
         return amount;
+    }
+
+    public static void RecordVirtualShaUse(object owner)
+    {
+        GetState(owner, RuntimeReflection.GetCombatState(owner)).ManualShaUsesThisTurn++;
+    }
+
+    public static bool TryConsumeQingLongTrigger(object owner)
+    {
+        var state = GetState(owner, RuntimeReflection.GetCombatState(owner));
+        if (state.QingLongTriggeredThisTurn)
+        {
+            return false;
+        }
+
+        state.QingLongTriggeredThisTurn = true;
+        return true;
     }
 }

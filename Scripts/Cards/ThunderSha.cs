@@ -24,13 +24,8 @@ public class ThunderSha : ShaCard
         var target = cardPlay.Target!;
         var hpBefore = target.CurrentHp;
 
-        await DealShaDamage(choiceContext, cardPlay, ResolveShaDamage());
-
-        var extraScorch = BattleState.TryConsumeNextAttackExtraScorch(Owner);
-        if (extraScorch > 0)
-        {
-            await PowerCmd.Apply<Powers.ScorchPower>(target, extraScorch, Owner, this);
-        }
+        await DealShaDamage(choiceContext, cardPlay, ResolveShaDamage(target));
+        await ApplyCommonShaScorch(choiceContext, target);
 
         if (_drawOnUpgrade)
         {

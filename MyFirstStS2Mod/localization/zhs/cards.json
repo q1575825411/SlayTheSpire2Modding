@@ -112,5 +112,130 @@
   "MY_FIRST_ST_S2_MOD_CARD_FENG_HUO_LIAN_YING.title": "烽火连营",
   "MY_FIRST_ST_S2_MOD_CARD_FENG_HUO_LIAN_YING.description": "每当敌人受到[red]灼烧[/red]伤害时，获得{FengHuoLianYingPower:diff()}点格挡。",
   "MYFIRSTSTS2MOD_CARD_FENG_HUO_LIAN_YING.title": "烽火连营",
-  "MYFIRSTSTS2MOD_CARD_FENG_HUO_LIAN_YING.description": "每当敌人受到[red]灼烧[/red]伤害时，获得{FengHuoLianYingPower:diff()}点格挡。"
+  "MYFIRSTSTS2MOD_CARD_FENG_HUO_LIAN_YING.description": "每当敌人受到[red]灼烧[/red]伤害时，获得{FengHuoLianYingPower:diff()}点格挡。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_ZHU_GE_LIAN_NU.title": "诸葛连弩",
+  "MY_FIRST_ST_S2_MOD_CARD_ZHU_GE_LIAN_NU.description": "装备到武器槽。\n只要此牌处于武器槽位中，你每回合可以打出任意数量的“杀”。",
+  "MYFIRSTSTS2MOD_CARD_ZHU_GE_LIAN_NU.title": "诸葛连弩",
+  "MYFIRSTSTS2MOD_CARD_ZHU_GE_LIAN_NU.description": "装备到武器槽。\n只要此牌处于武器槽位中，你每回合可以打出任意数量的“杀”。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_ZHANG_BA_SHE_MAO.title": "丈八蛇矛",
+  "MY_FIRST_ST_S2_MOD_CARD_ZHANG_BA_SHE_MAO.description": "装备到武器槽。\n回合开始时，自动弃置2张手牌。若如此，视为使用1张普通“杀”。\n这会计入本回合“杀”的次数限制。",
+  "MYFIRSTSTS2MOD_CARD_ZHANG_BA_SHE_MAO.title": "丈八蛇矛",
+  "MYFIRSTSTS2MOD_CARD_ZHANG_BA_SHE_MAO.description": "装备到武器槽。\n回合开始时，自动弃置2张手牌。若如此，视为使用1张普通“杀”。\n这会计入本回合“杀”的次数限制。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_QING_LONG_YAN_YUE_DAO.title": "青龙偃月刀",
+  "MY_FIRST_ST_S2_MOD_CARD_QING_LONG_YAN_YUE_DAO.description": "装备到武器槽。\n每回合首次你的“杀”未造成生命伤害时，自动弃置1张手牌并对该目标造成8点伤害。",
+  "MYFIRSTSTS2MOD_CARD_QING_LONG_YAN_YUE_DAO.title": "青龙偃月刀",
+  "MYFIRSTSTS2MOD_CARD_QING_LONG_YAN_YUE_DAO.description": "装备到武器槽。\n每回合首次你的“杀”未造成生命伤害时，自动弃置1张手牌并对该目标造成8点伤害。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_CI_XIONG_SHUANG_GU_JIAN.title": "雌雄双股剑",
+  "MY_FIRST_ST_S2_MOD_CARD_CI_XIONG_SHUANG_GU_JIAN.description": "装备到武器槽。\n当你使用“杀”攻击意图为攻击的敌人时，给予其1层[gold]虚弱[/gold]。",
+  "MYFIRSTSTS2MOD_CARD_CI_XIONG_SHUANG_GU_JIAN.title": "雌雄双股剑",
+  "MYFIRSTSTS2MOD_CARD_CI_XIONG_SHUANG_GU_JIAN.description": "装备到武器槽。\n当你使用“杀”攻击意图为攻击的敌人时，给予其1层[gold]虚弱[/gold]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_FANG_TIAN_HUA_JI.title": "方天画戟",
+  "MY_FIRST_ST_S2_MOD_CARD_FANG_TIAN_HUA_JI.description": "装备到武器槽。\n当你的“杀”造成生命伤害后，对其余所有敌人造成4点伤害。",
+  "MYFIRSTSTS2MOD_CARD_FANG_TIAN_HUA_JI.title": "方天画戟",
+  "MYFIRSTSTS2MOD_CARD_FANG_TIAN_HUA_JI.description": "装备到武器槽。\n当你的“杀”造成生命伤害后，对其余所有敌人造成4点伤害。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_HAN_BING_JIAN.title": "寒冰剑",
+  "MY_FIRST_ST_S2_MOD_CARD_HAN_BING_JIAN.description": "装备到武器槽。\n你的“杀”伤害减半。\n当你的“杀”造成生命伤害后，给予目标8层[blue]寒冷[/blue]。",
+  "MYFIRSTSTS2MOD_CARD_HAN_BING_JIAN.title": "寒冰剑",
+  "MYFIRSTSTS2MOD_CARD_HAN_BING_JIAN.description": "装备到武器槽。\n你的“杀”伤害减半。\n当你的“杀”造成生命伤害后，给予目标8层[blue]寒冷[/blue]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_ZHU_QUE_YU_SHAN.title": "朱雀羽扇",
+  "MY_FIRST_ST_S2_MOD_CARD_ZHU_QUE_YU_SHAN.description": "装备到武器槽。\n你的“杀”额外给予目标4层[red]灼烧[/red]。",
+  "MYFIRSTSTS2MOD_CARD_ZHU_QUE_YU_SHAN.title": "朱雀羽扇",
+  "MYFIRSTSTS2MOD_CARD_ZHU_QUE_YU_SHAN.description": "装备到武器槽。\n你的“杀”额外给予目标4层[red]灼烧[/red]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_GUAN_SHI_FU.title": "贯石斧",
+  "MY_FIRST_ST_S2_MOD_CARD_GUAN_SHI_FU.description": "装备到武器槽。\n当你的“杀”造成生命伤害后，自动弃置2张手牌并让该“杀”再结算一次伤害。\n再次结算只重复伤害，不重复附加效果。",
+  "MYFIRSTSTS2MOD_CARD_GUAN_SHI_FU.title": "贯石斧",
+  "MYFIRSTSTS2MOD_CARD_GUAN_SHI_FU.description": "装备到武器槽。\n当你的“杀”造成生命伤害后，自动弃置2张手牌并让该“杀”再结算一次伤害。\n再次结算只重复伤害，不重复附加效果。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_GU_DING_DAO.title": "古锭刀",
+  "MY_FIRST_ST_S2_MOD_CARD_GU_DING_DAO.description": "装备到武器槽。\n当你的“杀”攻击没有格挡的敌人时，该“杀”伤害提高25%。",
+  "MYFIRSTSTS2MOD_CARD_GU_DING_DAO.title": "古锭刀",
+  "MYFIRSTSTS2MOD_CARD_GU_DING_DAO.description": "装备到武器槽。\n当你的“杀”攻击没有格挡的敌人时，该“杀”伤害提高25%。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_QING_GANG_JIAN.title": "青釭剑",
+  "MY_FIRST_ST_S2_MOD_CARD_QING_GANG_JIAN.description": "装备到武器槽。\n你的“杀”造成的伤害无视格挡。",
+  "MYFIRSTSTS2MOD_CARD_QING_GANG_JIAN.title": "青釭剑",
+  "MYFIRSTSTS2MOD_CARD_QING_GANG_JIAN.description": "装备到武器槽。\n你的“杀”造成的伤害无视格挡。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_WU_LIU_JIAN.title": "吴六剑",
+  "MY_FIRST_ST_S2_MOD_CARD_WU_LIU_JIAN.description": "装备到武器槽。\n每当你使用“杀”后，本回合你的下一张非“杀”攻击牌伤害+6。\n如果本回合没有打出这样的攻击牌，则回合结束时获得4点格挡。",
+  "MYFIRSTSTS2MOD_CARD_WU_LIU_JIAN.title": "吴六剑",
+  "MYFIRSTSTS2MOD_CARD_WU_LIU_JIAN.description": "装备到武器槽。\n每当你使用“杀”后，本回合你的下一张非“杀”攻击牌伤害+6。\n如果本回合没有打出这样的攻击牌，则回合结束时获得4点格挡。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_BA_GUA_ZHEN.title": "八卦阵",
+  "MY_FIRST_ST_S2_MOD_CARD_BA_GUA_ZHEN.description": "装备到防具槽。\n每当你将要受到生命伤害时，有50%概率使该伤害减少1点。",
+  "MYFIRSTSTS2MOD_CARD_BA_GUA_ZHEN.title": "八卦阵",
+  "MYFIRSTSTS2MOD_CARD_BA_GUA_ZHEN.description": "装备到防具槽。\n每当你将要受到生命伤害时，有50%概率使该伤害减少1点。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_REN_WANG_DUN.title": "仁王盾",
+  "MY_FIRST_ST_S2_MOD_CARD_REN_WANG_DUN.description": "装备到防具槽。\n每回合第一次将要受到负面效果时，免疫该负面效果。",
+  "MYFIRSTSTS2MOD_CARD_REN_WANG_DUN.title": "仁王盾",
+  "MYFIRSTSTS2MOD_CARD_REN_WANG_DUN.description": "装备到防具槽。\n每回合第一次将要受到负面效果时，免疫该负面效果。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_BAI_YIN_SHI_ZI.title": "白银狮子",
+  "MY_FIRST_ST_S2_MOD_CARD_BAI_YIN_SHI_ZI.description": "装备到防具槽。\n每回合第一次将要受到生命伤害时，该伤害最多为20点。\n当此牌移出防具槽位时，获得7层再生。",
+  "MYFIRSTSTS2MOD_CARD_BAI_YIN_SHI_ZI.title": "白银狮子",
+  "MYFIRSTSTS2MOD_CARD_BAI_YIN_SHI_ZI.description": "装备到防具槽。\n每回合第一次将要受到生命伤害时，该伤害最多为20点。\n当此牌移出防具槽位时，获得7层再生。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_HU_XIN_JING.title": "护心镜",
+  "MY_FIRST_ST_S2_MOD_CARD_HU_XIN_JING.description": "装备到防具槽。\n当你将要受到致命伤害时，保留1点生命，并将此牌移出防具槽位。",
+  "MYFIRSTSTS2MOD_CARD_HU_XIN_JING.title": "护心镜",
+  "MYFIRSTSTS2MOD_CARD_HU_XIN_JING.description": "装备到防具槽。\n当你将要受到致命伤害时，保留1点生命，并将此牌移出防具槽位。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_TENG_JIA.title": "藤甲",
+  "MY_FIRST_ST_S2_MOD_CARD_TENG_JIA.description": "装备到防具槽。\n每回合第一次将要受到生命伤害时，免疫该伤害。\n你的回合结束时，给予自己2层[red]灼烧[/red]。",
+  "MYFIRSTSTS2MOD_CARD_TENG_JIA.title": "藤甲",
+  "MYFIRSTSTS2MOD_CARD_TENG_JIA.description": "装备到防具槽。\n每回合第一次将要受到生命伤害时，免疫该伤害。\n你的回合结束时，给予自己2层[red]灼烧[/red]。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_MING_GUANG_KAI.title": "明光铠",
+  "MY_FIRST_ST_S2_MOD_CARD_MING_GUANG_KAI.description": "装备到防具槽。\n进入防具槽时，移除你所有负面效果。\n当此牌移出防具槽位时，获得1点能量。",
+  "MYFIRSTSTS2MOD_CARD_MING_GUANG_KAI.title": "明光铠",
+  "MYFIRSTSTS2MOD_CARD_MING_GUANG_KAI.description": "装备到防具槽。\n进入防具槽时，移除你所有负面效果。\n当此牌移出防具槽位时，获得1点能量。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_JUE_YING.title": "绝影",
+  "MY_FIRST_ST_S2_MOD_CARD_JUE_YING.description": "装备到坐骑槽。\n每当你受到生命伤害时，获得1层覆甲。",
+  "MYFIRSTSTS2MOD_CARD_JUE_YING.title": "绝影",
+  "MYFIRSTSTS2MOD_CARD_JUE_YING.description": "装备到坐骑槽。\n每当你受到生命伤害时，获得1层覆甲。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_CHI_TU.title": "赤兔",
+  "MY_FIRST_ST_S2_MOD_CARD_CHI_TU.description": "装备到坐骑槽。\n每当你造成生命伤害时，获得1层临时力量和1层临时敏捷。",
+  "MYFIRSTSTS2MOD_CARD_CHI_TU.title": "赤兔",
+  "MYFIRSTSTS2MOD_CARD_CHI_TU.description": "装备到坐骑槽。\n每当你造成生命伤害时，获得1层临时力量和1层临时敏捷。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_QI_LIN.title": "麒麟",
+  "MY_FIRST_ST_S2_MOD_CARD_QI_LIN.description": "装备到坐骑槽。\n你每回合的初始能量增加1点。",
+  "MYFIRSTSTS2MOD_CARD_QI_LIN.title": "麒麟",
+  "MYFIRSTSTS2MOD_CARD_QI_LIN.description": "装备到坐骑槽。\n你每回合的初始能量增加1点。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_MU_NIU_LIU_MA.title": "木牛流马",
+  "MY_FIRST_ST_S2_MOD_CARD_MU_NIU_LIU_MA.description": "装备到宝物槽。\n回合结束时，保留至多2张手牌。\n当此牌移出宝物槽位时，丢弃你所有手牌。",
+  "MYFIRSTSTS2MOD_CARD_MU_NIU_LIU_MA.title": "木牛流马",
+  "MYFIRSTSTS2MOD_CARD_MU_NIU_LIU_MA.description": "装备到宝物槽。\n回合结束时，保留至多2张手牌。\n当此牌移出宝物槽位时，丢弃你所有手牌。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_TAI_PING_YAO_SHU.title": "太平要术",
+  "MY_FIRST_ST_S2_MOD_CARD_TAI_PING_YAO_SHU.description": "装备到宝物槽。\n你可以打出手牌中的 Status 牌和 Curse 牌。\n以此方式打出的牌会被消耗。",
+  "MYFIRSTSTS2MOD_CARD_TAI_PING_YAO_SHU.title": "太平要术",
+  "MYFIRSTSTS2MOD_CARD_TAI_PING_YAO_SHU.description": "装备到宝物槽。\n你可以打出手牌中的 Status 牌和 Curse 牌。\n以此方式打出的牌会被消耗。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_CHUAN_GUO_YU_XI.title": "传国玉玺",
+  "MY_FIRST_ST_S2_MOD_CARD_CHUAN_GUO_YU_XI.description": "装备到宝物槽。\n回合开始时额外抽1张牌。\n每回合前2张牌不消耗能量。\n累计生效2个回合后移出宝物槽位，并获得3层虚弱和3层易伤。",
+  "MYFIRSTSTS2MOD_CARD_CHUAN_GUO_YU_XI.title": "传国玉玺",
+  "MYFIRSTSTS2MOD_CARD_CHUAN_GUO_YU_XI.description": "装备到宝物槽。\n回合开始时额外抽1张牌。\n每回合前2张牌不消耗能量。\n累计生效2个回合后移出宝物槽位，并获得3层虚弱和3层易伤。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_YE_MING_ZHU.title": "夜明珠",
+  "MY_FIRST_ST_S2_MOD_CARD_YE_MING_ZHU.description": "装备到宝物槽。\n当你的能量变为0时，获得1点能量。\n每次装备期间只能触发1次。",
+  "MYFIRSTSTS2MOD_CARD_YE_MING_ZHU.title": "夜明珠",
+  "MYFIRSTSTS2MOD_CARD_YE_MING_ZHU.description": "装备到宝物槽。\n当你的能量变为0时，获得1点能量。\n每次装备期间只能触发1次。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_TONG_QUE_TAI.title": "铜雀台",
+  "MY_FIRST_ST_S2_MOD_CARD_TONG_QUE_TAI.description": "装备到宝物槽。\n进入宝物槽时，获得1层力量、1层敏捷、1层再生和1层覆甲。",
+  "MYFIRSTSTS2MOD_CARD_TONG_QUE_TAI.title": "铜雀台",
+  "MYFIRSTSTS2MOD_CARD_TONG_QUE_TAI.description": "装备到宝物槽。\n进入宝物槽时，获得1层力量、1层敏捷、1层再生和1层覆甲。"
 }

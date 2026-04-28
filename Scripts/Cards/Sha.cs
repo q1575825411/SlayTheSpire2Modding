@@ -11,13 +11,8 @@ public class Sha : ShaCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DealShaDamage(choiceContext, cardPlay, ResolveShaDamage());
-
-        var extraScorch = BattleState.TryConsumeNextAttackExtraScorch(Owner);
-        if (extraScorch > 0)
-        {
-            await PowerCmd.Apply<Powers.ScorchPower>(cardPlay.Target!, extraScorch, Owner, this);
-        }
+        var result = await DealShaDamage(choiceContext, cardPlay, ResolveShaDamage(cardPlay.Target!));
+        await ApplyCommonShaScorch(choiceContext, result.Target);
     }
 
     protected override void OnUpgrade()
