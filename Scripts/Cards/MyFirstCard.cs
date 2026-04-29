@@ -1,11 +1,11 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Models.CardPools;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
+using MyFirstStS2Mod.Scripts.Characters;
 
 namespace MyFirstStS2Mod.Scripts.Cards;
 
-[RegisterCard(typeof(ColorlessCardPool), Inherit = true)]
+[RegisterCard(typeof(SoldierCardPool), Inherit = true)]
 public abstract class MyFirstCard : ModCardTemplate
 {
     public override CardAssetProfile AssetProfile => new(

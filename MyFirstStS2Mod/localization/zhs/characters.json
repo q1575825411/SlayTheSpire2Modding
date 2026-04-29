@@ -1,1 +1,17 @@
-{}
+{
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.title": "士兵",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.titleObject": "士兵",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.description": "三国杀 mod 的基础模板角色。\n不代表具体武将、势力或阵营，只作为玩家进入牌局的默认身份载体。",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.pronounSubject": "他",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.pronounObject": "他",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.pronounPossessive": "他的",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.possessiveAdjective": "他的",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.cardsModifierTitle": "士兵卡牌",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.cardsModifierDescription": "士兵的卡牌现在会出现在奖励和商店中。",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.unlockText": "该角色当前作为基础模板角色直接启用。",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.goldMonologue": "[sine]这些筹码，总会派上用场。[/sine]",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.aromaPrinciple": "[sine][red]先入局，再定名将。[/red][/sine]",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.eventDeathPrevention": "这一局，还不能在这里结束。",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.banter.alive.endTurnPing": "先守阵脚，再看后势。",
+  "MY_FIRST_ST_S2_MOD_CHARACTER_SOLDIER_CHARACTER.banter.dead.endTurnPing": "这一阵，先记下。"
+}

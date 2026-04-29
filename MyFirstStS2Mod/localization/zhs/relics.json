@@ -1,1 +1,5 @@
-{}
+{
+  "MY_FIRST_ST_S2_MOD_RELIC_IDENTITY_BADGE_RELIC.title": "身份牌",
+  "MY_FIRST_ST_S2_MOD_RELIC_IDENTITY_BADGE_RELIC.description": "游戏开始时，随机获得一种身份：主公、忠臣、反贼、内奸。主公：最大生命值提高5。忠臣：每场战斗开始时，获得3层覆甲。反贼：每场战斗开始时，额外抽2张牌。内奸：每进入一个新阶段时，获得一次额外的卡牌奖励。",
+  "MY_FIRST_ST_S2_MOD_RELIC_IDENTITY_BADGE_RELIC.flavor": "此局既定，身份不移。"
+}

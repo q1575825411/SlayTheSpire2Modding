@@ -3,6 +3,9 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
 using STS2RitsuLib;
 using STS2RitsuLib.Interop;
+using MyFirstStS2Mod.Scripts.Cards;
+using MyFirstStS2Mod.Scripts.Characters;
+using MyFirstStS2Mod.Scripts.Relics;
 
 namespace MyFirstStS2Mod.Scripts;
 
@@ -19,6 +22,16 @@ public class Entry
         harmony.PatchAll(assembly);
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
+        IdentityBadgeRuntime.Initialize();
+        RitsuLibFramework.CreateContentPack(ModId)
+            .Character<SoldierCharacter>(entry => entry
+                .AddStartingCard<Sha>(4)
+                .AddStartingCard<Shan>(4)
+                .AddStartingCard<Tao>(1)
+                .AddStartingCard<Jiu>(1)
+                .AddStartingRelic<IdentityBadgeRelic>())
+            .Relic<SoldierRelicPool, IdentityBadgeRelic>()
+            .Apply();
         Logger.LogInfo("MyFirstStS2Mod initialized.");
     }
 }

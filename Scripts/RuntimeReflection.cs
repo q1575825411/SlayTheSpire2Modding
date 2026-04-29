@@ -3,9 +3,11 @@ using System.Reflection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MyFirstStS2Mod.Scripts.Characters;
 
 namespace MyFirstStS2Mod.Scripts;
 
@@ -14,6 +16,43 @@ internal static class RuntimeReflection
     public static object? GetPlayerCombatState(object? owner)
     {
         return owner?.GetType().GetProperty("PlayerCombatState")?.GetValue(owner);
+    }
+
+    public static object? GetCharacterModel(object? owner)
+    {
+        if (owner is null)
+        {
+            return null;
+        }
+
+        foreach (var target in new[] { owner, GetPlayerCombatState(owner) })
+        {
+            if (target is null)
+            {
+                continue;
+            }
+
+            foreach (var propertyName in new[] { "Character", "CharacterModel" })
+            {
+                var value = target.GetType().GetProperty(propertyName)?.GetValue(target);
+                if (value is not null)
+                {
+                    return value;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public static bool IsOwnedByCharacterType<TCharacter>(object? owner)
+    {
+        return GetCharacterModel(owner) is TCharacter;
+    }
+
+    public static bool IsEquipmentEnabledForOwner(object? owner)
+    {
+        return IsOwnedByCharacterType<SoldierCharacter>(owner);
     }
 
     public static List<CardModel> GetHandCards(object? owner)
@@ -31,6 +70,21 @@ internal static class RuntimeReflection
         }
 
         return cards.OfType<CardModel>().ToList();
+    }
+
+    public static List<RelicModel> GetOwnedRelics(object? owner)
+    {
+        if (owner is null)
+        {
+            return [];
+        }
+
+        if (owner.GetType().GetProperty("Relics")?.GetValue(owner) is not IEnumerable relics)
+        {
+            return [];
+        }
+
+        return relics.OfType<RelicModel>().ToList();
     }
 
     public static bool HasCardInHand<TCard>(object? owner) where TCard : CardModel
@@ -174,6 +228,98 @@ internal static class RuntimeReflection
         }
 
         return 0m;
+    }
+
+    public static bool TryIncreaseMaxHp(object? creature, int amount, bool alsoHeal = true)
+    {
+        if (creature is null || amount == 0)
+        {
+            return false;
+        }
+
+        var updated = false;
+        foreach (var propertyName in new[] { "MaxHp", "MaxHealth", "MaxLife", "HealthMax" })
+        {
+            var property = creature.GetType().GetProperty(propertyName);
+            if (property?.CanWrite != true)
+            {
+                continue;
+            }
+
+            var currentValue = property.GetValue(creature);
+            if (currentValue is decimal decimalValue)
+            {
+                property.SetValue(creature, decimalValue + amount);
+                updated = true;
+                break;
+            }
+
+            if (currentValue is int intValue)
+            {
+                property.SetValue(creature, intValue + amount);
+                updated = true;
+                break;
+            }
+        }
+
+        if (!updated)
+        {
+            return false;
+        }
+
+        if (alsoHeal)
+        {
+            foreach (var propertyName in new[] { "CurrentHp", "CurrentHealth", "Hp", "Health" })
+            {
+                var property = creature.GetType().GetProperty(propertyName);
+                if (property?.CanWrite != true)
+                {
+                    continue;
+                }
+
+                var currentValue = property.GetValue(creature);
+                if (currentValue is decimal decimalValue)
+                {
+                    property.SetValue(creature, decimalValue + amount);
+                    break;
+                }
+
+                if (currentValue is int intValue)
+                {
+                    property.SetValue(creature, intValue + amount);
+                    break;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public static int GetCurrentActIndex(object? owner)
+    {
+        var runState = owner?.GetType().GetProperty("RunState")?.GetValue(owner)
+            ?? owner?.GetType().GetProperty("Run")?.GetValue(owner);
+
+        if (runState is null)
+        {
+            return -1;
+        }
+
+        foreach (var propertyName in new[] { "CurrentActIndex", "ActIndex", "CurrentAct", "ActNumber" })
+        {
+            var value = runState.GetType().GetProperty(propertyName)?.GetValue(runState);
+            if (value is int intValue)
+            {
+                return intValue;
+            }
+
+            if (value is decimal decimalValue)
+            {
+                return (int)decimalValue;
+            }
+        }
+
+        return -1;
     }
 
     public static List<Creature> GetLivingOpponents(object? owner)

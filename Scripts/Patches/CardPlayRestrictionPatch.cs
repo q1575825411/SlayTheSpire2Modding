@@ -47,6 +47,13 @@ internal static class CardPlayRestrictionPatch
             return false;
         }
 
+        if (card is EquipmentCard
+            && (card.Owner is null || !RuntimeReflection.IsEquipmentEnabledForOwner(card.Owner)))
+        {
+            CancelPlayCardMethod.Invoke(__instance, []);
+            return false;
+        }
+
         if (card is Jiu && card.Owner is not null && BattleState.IsDrunk(card.Owner))
         {
             CancelPlayCardMethod.Invoke(__instance, []);

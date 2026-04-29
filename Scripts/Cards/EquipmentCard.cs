@@ -23,6 +23,11 @@ public abstract class EquipmentCard : MyFirstCard
 
     protected sealed override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if (Owner is null || !RuntimeReflection.IsEquipmentEnabledForOwner(Owner))
+        {
+            return;
+        }
+
         await EquipmentState.Equip(Owner, this);
         await OnEquippedFromPlay(choiceContext, cardPlay);
     }

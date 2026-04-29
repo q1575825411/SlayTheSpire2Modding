@@ -15,6 +15,11 @@ internal static class EquipmentState
 
     public static EquipmentCard? GetEquipped(object owner, EquipmentSlotType slot)
     {
+        if (!RuntimeReflection.IsEquipmentEnabledForOwner(owner))
+        {
+            return null;
+        }
+
         return States.GetOrCreateValue(owner).Equipped.GetValueOrDefault(slot);
     }
 
@@ -26,6 +31,11 @@ internal static class EquipmentState
 
     public static IReadOnlyDictionary<EquipmentSlotType, EquipmentCard> GetAllEquipped(object owner)
     {
+        if (!RuntimeReflection.IsEquipmentEnabledForOwner(owner))
+        {
+            return EmptyEquipment;
+        }
+
         return States.GetOrCreateValue(owner).Equipped;
     }
 
@@ -36,6 +46,11 @@ internal static class EquipmentState
 
     public static async Task Equip(object owner, EquipmentCard equipment)
     {
+        if (!RuntimeReflection.IsEquipmentEnabledForOwner(owner))
+        {
+            return;
+        }
+
         var state = States.GetOrCreateValue(owner);
         if (state.Equipped.TryGetValue(equipment.SlotType, out var previous))
         {
@@ -48,6 +63,11 @@ internal static class EquipmentState
 
     public static async Task UnequipIfCurrent(object owner, EquipmentCard equipment)
     {
+        if (!RuntimeReflection.IsEquipmentEnabledForOwner(owner))
+        {
+            return;
+        }
+
         var state = States.GetOrCreateValue(owner);
         if (!state.Equipped.TryGetValue(equipment.SlotType, out var current) || current != equipment)
         {
@@ -60,6 +80,11 @@ internal static class EquipmentState
 
     public static async Task UnequipSlot(object owner, EquipmentSlotType slot)
     {
+        if (!RuntimeReflection.IsEquipmentEnabledForOwner(owner))
+        {
+            return;
+        }
+
         var state = States.GetOrCreateValue(owner);
         if (!state.Equipped.TryGetValue(slot, out var current))
         {
@@ -74,4 +99,7 @@ internal static class EquipmentState
     {
         return GetEquipped(owner, slot) is not null;
     }
+
+    private static readonly IReadOnlyDictionary<EquipmentSlotType, EquipmentCard> EmptyEquipment =
+        new Dictionary<EquipmentSlotType, EquipmentCard>();
 }
