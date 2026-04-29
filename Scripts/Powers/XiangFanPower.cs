@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MyFirstStS2Mod.Scripts.Relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -22,7 +23,7 @@ public class XiangFanPower : ModPowerTemplate
 
         foreach (var enemy in CombatState.GetOpponentsOf(Owner).Where(creature => creature.IsAlive))
         {
-            await PowerCmd.Apply<ColdPower>(enemy, Amount, Owner, null);
+            await PowerCmd.Apply<ColdPower>(enemy, OtherRelicChecks.ModifyColdAmount(Owner, enemy, (int)Amount), Owner, null);
         }
     }
 }

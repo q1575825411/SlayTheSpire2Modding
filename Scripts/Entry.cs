@@ -23,6 +23,7 @@ public class Entry
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
         IdentityBadgeRuntime.Initialize();
+        OtherRelicRuntime.Initialize();
         RitsuLibFramework.CreateContentPack(ModId)
             .Character<SoldierCharacter>(entry => entry
                 .AddStartingCard<Sha>(4)
@@ -31,6 +32,19 @@ public class Entry
                 .AddStartingCard<Jiu>(1)
                 .AddStartingRelic<IdentityBadgeRelic>())
             .Relic<SoldierRelicPool, IdentityBadgeRelic>()
+            .Relic<SoldierRelicPool, FireOilRelic>()
+            .Relic<SoldierRelicPool, SecretLetterRelic>()
+            .Relic<SoldierRelicPool, WarDrumRelic>()
+            .Relic<SoldierRelicPool, MilitaryRationsRelic>()
+            .Relic<SoldierRelicPool, FeatherArrowRelic>()
+            .Relic<SoldierRelicPool, ColdIronRelic>()
+            .Relic<SoldierRelicPool, FormationChartRelic>()
+            .Relic<SoldierRelicPool, AmuletRelic>()
+            .Relic<SoldierRelicPool, ChainSchemeRelic>()
+            .Relic<SoldierRelicPool, TigerTallyRelic>()
+            .Relic<SoldierRelicPool, OfficialSealRelic>()
+            .Relic<SoldierRelicPool, FortressMapRelic>()
+            .Relic<SoldierRelicPool, WinePouchRelic>()
             .Apply();
         Logger.LogInfo("MyFirstStS2Mod initialized.");
     }

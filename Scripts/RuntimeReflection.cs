@@ -123,6 +123,16 @@ internal static class RuntimeReflection
         return GetExhaustPileCards(owner).Count;
     }
 
+    public static List<CardModel> GetDiscardPileCards(object? owner)
+    {
+        return GetCardsFromNamedPile(owner, "DiscardPile", "Discard");
+    }
+
+    public static List<CardModel> GetDrawPileCards(object? owner)
+    {
+        return GetCardsFromNamedPile(owner, "DrawPile", "Draw");
+    }
+
     public static object? GetCombatState(object? owner)
     {
         return owner?.GetType().GetProperty("CombatState")?.GetValue(owner);
@@ -230,6 +240,54 @@ internal static class RuntimeReflection
         return 0m;
     }
 
+    public static decimal GetCurrentHp(object? creature)
+    {
+        if (creature is null)
+        {
+            return 0m;
+        }
+
+        foreach (var propertyName in new[] { "CurrentHp", "CurrentHealth", "Hp", "Health" })
+        {
+            var value = creature.GetType().GetProperty(propertyName)?.GetValue(creature);
+            if (value is decimal decimalValue)
+            {
+                return decimalValue;
+            }
+
+            if (value is int intValue)
+            {
+                return intValue;
+            }
+        }
+
+        return 0m;
+    }
+
+    public static decimal GetMaxHp(object? creature)
+    {
+        if (creature is null)
+        {
+            return 0m;
+        }
+
+        foreach (var propertyName in new[] { "MaxHp", "MaxHealth", "MaxLife", "HealthMax" })
+        {
+            var value = creature.GetType().GetProperty(propertyName)?.GetValue(creature);
+            if (value is decimal decimalValue)
+            {
+                return decimalValue;
+            }
+
+            if (value is int intValue)
+            {
+                return intValue;
+            }
+        }
+
+        return 0m;
+    }
+
     public static bool TryIncreaseMaxHp(object? creature, int amount, bool alsoHeal = true)
     {
         if (creature is null || amount == 0)
@@ -320,6 +378,42 @@ internal static class RuntimeReflection
         }
 
         return -1;
+    }
+
+    public static int GetCombatRoundNumber(object? combatState)
+    {
+        if (combatState is null)
+        {
+            return 0;
+        }
+
+        foreach (var propertyName in new[] { "RoundNumber", "Round", "Turn", "TurnNumber", "TurnIndex" })
+        {
+            var value = combatState.GetType().GetProperty(propertyName)?.GetValue(combatState);
+            if (value is int intValue)
+            {
+                return intValue;
+            }
+
+            if (value is decimal decimalValue)
+            {
+                return (int)decimalValue;
+            }
+        }
+
+        return 0;
+    }
+
+    public static int CountCardsOwnedBy<TCard>(object? owner) where TCard : CardModel
+    {
+        var masterDeck = GetMasterDeckCards(owner);
+        if (masterDeck.Count > 0)
+        {
+            return masterDeck.Count(card => card is TCard);
+        }
+
+        return GetHandCards(owner).Concat(GetDrawPileCards(owner)).Concat(GetDiscardPileCards(owner)).Concat(GetExhaustPileCards(owner))
+            .Count(card => card is TCard);
     }
 
     public static List<Creature> GetLivingOpponents(object? owner)
@@ -537,6 +631,12 @@ internal static class RuntimeReflection
         }
     }
 
+    public static void TryReduceCardCostForTurn(CardModel card, int amount)
+    {
+        var currentCost = GetCardBaseCost(card);
+        TrySetCardCostForTurn(card, Math.Max(0, currentCost - amount));
+    }
+
     public static void TrySetCardRetain(CardModel card, bool retain)
     {
         foreach (var propertyName in new[] { "Retain", "ShouldRetain", "RetainedThisTurn" })
@@ -684,6 +784,35 @@ internal static class RuntimeReflection
         return false;
     }
 
+    public static bool TryMoveCardFromDiscardToDrawPile(object? owner, CardModel card, bool shuffleIntoDrawPile)
+    {
+        return TryMoveCardBetweenPiles(owner, card, new[] { "DiscardPile", "Discard" }, new[] { "DrawPile", "Draw" }, shuffleIntoDrawPile);
+    }
+
+    public static bool TryMoveCardFromExhaustToDiscard(object? owner, CardModel card)
+    {
+        return TryMoveCardBetweenPiles(owner, card, new[] { "ExhaustPile", "ExhaustedPile", "Exhaust", "Exhausted" }, new[] { "DiscardPile", "Discard" }, false);
+    }
+
+    public static bool IsMerchantEntryPurchased(object? entry)
+    {
+        if (entry is null)
+        {
+            return false;
+        }
+
+        foreach (var propertyName in new[] { "IsSoldOut", "SoldOut", "IsPurchased", "Purchased", "WasPurchased" })
+        {
+            var value = entry.GetType().GetProperty(propertyName)?.GetValue(entry);
+            if (value is bool boolValue && boolValue)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static bool TryEndTurn(PlayerChoiceContext choiceContext, object? owner)
     {
         foreach (var target in new[] { GetPlayerCombatState(owner), GetCombatState(owner), owner })
@@ -780,5 +909,119 @@ internal static class RuntimeReflection
         {
             property.SetValue(target, value);
         }
+    }
+
+    private static List<CardModel> GetCardsFromNamedPile(object? owner, params string[] propertyNames)
+    {
+        var playerCombatState = GetPlayerCombatState(owner);
+        if (playerCombatState is null)
+        {
+            return [];
+        }
+
+        foreach (var propertyName in propertyNames)
+        {
+            var pile = playerCombatState.GetType().GetProperty(propertyName)?.GetValue(playerCombatState);
+            var cards = pile?.GetType().GetProperty("Cards")?.GetValue(pile) as IEnumerable;
+            if (cards is not null)
+            {
+                return cards.OfType<CardModel>().ToList();
+            }
+        }
+
+        return [];
+    }
+
+    private static List<CardModel> GetMasterDeckCards(object? owner)
+    {
+        foreach (var target in new[] { owner, owner?.GetType().GetProperty("RunState")?.GetValue(owner) })
+        {
+            if (target is null)
+            {
+                continue;
+            }
+
+            foreach (var propertyName in new[] { "MasterDeck", "Deck", "Cards" })
+            {
+                var container = target.GetType().GetProperty(propertyName)?.GetValue(target);
+                if (container is IEnumerable direct)
+                {
+                    var cards = direct.OfType<CardModel>().ToList();
+                    if (cards.Count > 0)
+                    {
+                        return cards;
+                    }
+                }
+
+                if (container?.GetType().GetProperty("Cards")?.GetValue(container) is IEnumerable nested)
+                {
+                    var cards = nested.OfType<CardModel>().ToList();
+                    if (cards.Count > 0)
+                    {
+                        return cards;
+                    }
+                }
+            }
+        }
+
+        return [];
+    }
+
+    private static bool TryMoveCardBetweenPiles(
+        object? owner,
+        CardModel card,
+        IReadOnlyList<string> sourcePropertyNames,
+        IReadOnlyList<string> destinationPropertyNames,
+        bool shuffleIntoDestination)
+    {
+        var playerCombatState = GetPlayerCombatState(owner);
+        if (playerCombatState is null)
+        {
+            return false;
+        }
+
+        IList? sourceList = null;
+        foreach (var propertyName in sourcePropertyNames)
+        {
+            var pile = playerCombatState.GetType().GetProperty(propertyName)?.GetValue(playerCombatState);
+            if (pile?.GetType().GetProperty("Cards")?.GetValue(pile) is IList list && list.Contains(card))
+            {
+                sourceList = list;
+                break;
+            }
+        }
+
+        if (sourceList is null)
+        {
+            return false;
+        }
+
+        IList? destinationList = null;
+        foreach (var propertyName in destinationPropertyNames)
+        {
+            var pile = playerCombatState.GetType().GetProperty(propertyName)?.GetValue(playerCombatState);
+            if (pile?.GetType().GetProperty("Cards")?.GetValue(pile) is IList list)
+            {
+                destinationList = list;
+                break;
+            }
+        }
+
+        if (destinationList is null)
+        {
+            return false;
+        }
+
+        sourceList.Remove(card);
+        if (shuffleIntoDestination)
+        {
+            destinationList.Insert(Random.Shared.Next(destinationList.Count + 1), card);
+        }
+        else
+        {
+            destinationList.Add(card);
+        }
+
+        return true;
     }
 }

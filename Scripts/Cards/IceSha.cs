@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MyFirstStS2Mod.Scripts.Relics;
 using STS2RitsuLib.Cards.DynamicVars;
 
 namespace MyFirstStS2Mod.Scripts.Cards;
@@ -28,7 +29,7 @@ public class IceSha : ShaCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var result = await DealShaDamage(choiceContext, cardPlay, ResolveShaDamage(cardPlay.Target!));
-        await PowerCmd.Apply<Powers.ColdPower>(cardPlay.Target!, _coldAmount, Owner, this);
+        await PowerCmd.Apply<Powers.ColdPower>(cardPlay.Target!, OtherRelicChecks.ModifyColdAmount(Owner, cardPlay.Target, _coldAmount), Owner, this);
         await ApplyCommonShaScorch(choiceContext, result.Target);
     }
 

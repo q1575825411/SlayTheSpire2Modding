@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using MyFirstStS2Mod.Scripts.Equipment;
+using MyFirstStS2Mod.Scripts.Relics;
 using STS2RitsuLib.Cards.DynamicVars;
 
 namespace MyFirstStS2Mod.Scripts.Cards;
@@ -100,7 +101,7 @@ public abstract class ShaCard : MyFirstCard
 
             if (EquipmentQueries.GetEquipped<HanBingJian>(Owner, EquipmentSlotType.Weapon) is not null)
             {
-                await PowerCmd.Apply<Powers.ColdPower>(target, 8, Owner, this);
+                await PowerCmd.Apply<Powers.ColdPower>(target, OtherRelicChecks.ModifyColdAmount(Owner, target, 8), Owner, this);
             }
 
             if (EquipmentQueries.GetEquipped<GuanShiFu>(Owner, EquipmentSlotType.Weapon) is not null
@@ -145,7 +146,7 @@ public abstract class ShaCard : MyFirstCard
 
         if (extraScorch > 0)
         {
-            await PowerCmd.Apply<Powers.ScorchPower>(target, extraScorch, Owner, this);
+            await PowerCmd.Apply<Powers.ScorchPower>(target, OtherRelicChecks.ModifyScorchAmount(Owner, target, extraScorch), Owner, this);
         }
     }
 }

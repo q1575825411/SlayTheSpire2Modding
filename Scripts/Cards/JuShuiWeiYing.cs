@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MyFirstStS2Mod.Scripts.Relics;
 
 namespace MyFirstStS2Mod.Scripts.Cards;
 
@@ -28,7 +29,7 @@ public class JuShuiWeiYing : MyFirstCard
             await PowerCmd.Remove(cold);
             if (remaining > 0)
             {
-                await PowerCmd.Apply<Powers.ColdPower>(target, remaining, Owner, this);
+                await PowerCmd.Apply<Powers.ColdPower>(target, OtherRelicChecks.ModifyColdAmount(Owner, target, remaining), Owner, this);
             }
         }
 

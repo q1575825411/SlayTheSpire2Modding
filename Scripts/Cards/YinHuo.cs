@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MyFirstStS2Mod.Scripts.Relics;
 using STS2RitsuLib.Cards.DynamicVars;
 
 namespace MyFirstStS2Mod.Scripts.Cards;
@@ -31,13 +32,13 @@ public class YinHuo : MyFirstCard
         {
             foreach (var enemy in CombatState.GetOpponentsOf(Owner).Where(creature => creature.IsAlive))
             {
-                await PowerCmd.Apply<Powers.ScorchPower>(enemy, _allTargetScorch, Owner, this);
+                await PowerCmd.Apply<Powers.ScorchPower>(enemy, OtherRelicChecks.ModifyScorchAmount(Owner, enemy, _allTargetScorch), Owner, this);
             }
 
             return;
         }
 
-        await PowerCmd.Apply<Powers.ScorchPower>(target, _singleTargetScorch, Owner, this);
+        await PowerCmd.Apply<Powers.ScorchPower>(target, OtherRelicChecks.ModifyScorchAmount(Owner, target, _singleTargetScorch), Owner, this);
     }
 
     protected override void OnUpgrade()

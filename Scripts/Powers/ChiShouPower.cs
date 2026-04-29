@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MyFirstStS2Mod.Scripts.Relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -40,6 +41,6 @@ public class ChiShouPower : ModPowerTemplate
 
         var enemy = enemies[Random.Shared.Next(enemies.Count)];
         _triggersThisTurn++;
-        await PowerCmd.Apply<ScorchPower>(enemy, Amount, Owner, null);
+        await PowerCmd.Apply<ScorchPower>(enemy, OtherRelicChecks.ModifyScorchAmount(Owner, enemy, (int)Amount), Owner, null);
     }
 }

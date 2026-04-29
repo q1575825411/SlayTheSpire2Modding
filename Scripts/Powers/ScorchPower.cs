@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.ValueProps;
+using MyFirstStS2Mod.Scripts.Relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -21,10 +22,23 @@ public class ScorchPower : ModPowerTemplate
             return;
         }
 
+        var damageAmount = Amount;
+        if (CombatState is not null)
+        {
+            foreach (var opponent in CombatState.GetOpponentsOf(Owner))
+            {
+                if (OtherRelicChecks.HasRelic<FireOilRelic>(opponent))
+                {
+                    damageAmount += 1;
+                    break;
+                }
+            }
+        }
+
         await CreatureCmd.Damage(
             choiceContext,
             [Owner],
-            Amount,
+            damageAmount,
             ValueProp.Unpowered | ValueProp.Unblockable,
             null);
 

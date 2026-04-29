@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MyFirstStS2Mod.Scripts.Cards;
 using MyFirstStS2Mod.Scripts.Equipment;
+using MyFirstStS2Mod.Scripts.Relics;
 
 namespace MyFirstStS2Mod.Scripts.Patches;
 
@@ -47,6 +48,12 @@ internal static class CardPlayRestrictionPatch
             return false;
         }
 
+        if (card is ShaCard shaCard && shaCard.Owner is not null && OtherRelicChecks.HasRelic<FeatherArrowRelic>(shaCard.Owner)
+            && OtherRelicState.CanUseFeatherArrow(shaCard.Owner))
+        {
+            RuntimeReflection.TryReduceCardCostForTurn(shaCard, 1);
+        }
+
         if (card is EquipmentCard
             && (card.Owner is null || !RuntimeReflection.IsEquipmentEnabledForOwner(card.Owner)))
         {
@@ -54,10 +61,21 @@ internal static class CardPlayRestrictionPatch
             return false;
         }
 
+        if (card is EquipmentCard equipmentCard && equipmentCard.Owner is not null
+            && OtherRelicChecks.HasRelic<FormationChartRelic>(equipmentCard.Owner))
+        {
+            RuntimeReflection.TrySetCardCostForTurn(equipmentCard, 1);
+        }
+
         if (card is Jiu && card.Owner is not null && BattleState.IsDrunk(card.Owner))
         {
             CancelPlayCardMethod.Invoke(__instance, []);
             return false;
+        }
+
+        if (card is Jiu jiu && jiu.Owner is not null && OtherRelicChecks.HasRelic<WinePouchRelic>(jiu.Owner))
+        {
+            RuntimeReflection.TrySetCardExhaust(jiu, false);
         }
 
         if (card is NanManRuQin && !RuntimeReflection.HasCardInHand<ShaCard>(card.Owner))
