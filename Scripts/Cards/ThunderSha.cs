@@ -8,14 +8,15 @@ namespace MyFirstStS2Mod.Scripts.Cards;
 
 public class ThunderSha : ShaCard
 {
-    private bool _drawOnUpgrade;
+    private int _energyOnHit = 1;
+    private int _drawAmount;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(4, MegaCrit.Sts2.Core.ValueProps.ValueProp.Move),
+        new DamageVar(5, MegaCrit.Sts2.Core.ValueProps.ValueProp.Move),
         new CardsVar(1)
     ];
 
-    public ThunderSha() : base(4, CardRarity.Uncommon)
+    public ThunderSha() : base(5, CardRarity.Uncommon)
     {
     }
 
@@ -27,19 +28,20 @@ public class ThunderSha : ShaCard
         await DealShaDamage(choiceContext, cardPlay, ResolveShaDamage(target));
         await ApplyCommonShaScorch(choiceContext, target);
 
-        if (_drawOnUpgrade)
+        if (_drawAmount > 0)
         {
-            await CardPileCmd.Draw(choiceContext, 1, Owner);
+            await CardPileCmd.Draw(choiceContext, _drawAmount, Owner);
         }
 
         if (target.CurrentHp < hpBefore)
         {
-            Owner.PlayerCombatState?.GainEnergy(1);
+            Owner.PlayerCombatState?.GainEnergy(_energyOnHit);
         }
     }
 
     protected override void OnUpgrade()
     {
-        _drawOnUpgrade = true;
+        DynamicVars.Damage.UpgradeValueBy(3);
+        _drawAmount = 1;
     }
 }

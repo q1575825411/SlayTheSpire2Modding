@@ -5,7 +5,7 @@ namespace MyFirstStS2Mod.Scripts.Cards;
 
 public class Sha : ShaCard
 {
-    public Sha() : base(8, CardRarity.Common)
+    public Sha() : base(11, CardRarity.Common)
     {
     }
 
@@ -17,6 +17,6 @@ public class Sha : ShaCard
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(8);
+        DynamicVars.Damage.UpgradeValueBy(4);
     }
 }

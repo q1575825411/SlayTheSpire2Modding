@@ -12,7 +12,7 @@ public class FireSha : ShaCard
     private int _scorchAmount = 4;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(2, MegaCrit.Sts2.Core.ValueProps.ValueProp.Move),
+        new DamageVar(5, MegaCrit.Sts2.Core.ValueProps.ValueProp.Move),
         new PowerVar<Powers.ScorchPower>(4)
     ];
 
@@ -21,7 +21,7 @@ public class FireSha : ShaCard
         HoverTipFactory.FromPower<Powers.ScorchPower>()
     ];
 
-    public FireSha() : base(2, CardRarity.Uncommon)
+    public FireSha() : base(5, CardRarity.Uncommon)
     {
     }
 
@@ -34,7 +34,7 @@ public class FireSha : ShaCard
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2);
+        DynamicVars.Damage.UpgradeValueBy(3);
         DynamicVars["ScorchPower"].UpgradeValueBy(4);
         _scorchAmount = 8;
     }

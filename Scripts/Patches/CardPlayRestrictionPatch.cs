@@ -26,6 +26,19 @@ internal static class CardPlayRestrictionPatch
             return true;
         }
 
+        if (card is ShaCard && card.Owner?.Powers.OfType<Powers.ZhanChangPower>().Any() == true)
+        {
+            RuntimeReflection.TrySetCardCostForTurn(card, 0);
+        }
+
+        foreach (var power in card.Owner?.Powers.OfType<Powers.KuHanXingPower>() ?? [])
+        {
+            if (power.TryApplyTo(card))
+            {
+                break;
+            }
+        }
+
         if (card is ShaCard
             && (card.Owner is null || EquipmentQueries.GetEquipped<ZhuGeLianNu>(card.Owner, EquipmentSlotType.Weapon) is null)
             && BattleState.HasPlayedShaThisTurn(card))
@@ -41,6 +54,18 @@ internal static class CardPlayRestrictionPatch
         }
 
         if (card is NanManRuQin && !RuntimeReflection.HasCardInHand<ShaCard>(card.Owner))
+        {
+            CancelPlayCardMethod.Invoke(__instance, []);
+            return false;
+        }
+
+        if (card is TuXi && RuntimeReflection.FindFirstCardInHand<ShaCard>(card.Owner, card) is null)
+        {
+            CancelPlayCardMethod.Invoke(__instance, []);
+            return false;
+        }
+
+        if (card is JianShouDaiYuan && RuntimeReflection.HasCardInHand<ShaCard>(card.Owner))
         {
             CancelPlayCardMethod.Invoke(__instance, []);
             return false;

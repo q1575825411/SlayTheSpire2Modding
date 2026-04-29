@@ -18,7 +18,7 @@ public abstract class ShaCard : MyFirstCard
     ];
 
     protected ShaCard(int damage, CardRarity rarity)
-        : base(0, CardType.Attack, rarity, TargetType.AnyEnemy)
+        : base(1, CardType.Attack, rarity, TargetType.AnyEnemy)
     {
         BaseDamage = damage;
     }
@@ -36,6 +36,10 @@ public abstract class ShaCard : MyFirstCard
         {
             damage *= 2;
         }
+
+        damage += BattleState.TryConsumeNextShaFlatDamage(Owner);
+
+        damage += (int)Owner.Powers.OfType<Powers.ZhanChangPower>().Sum(power => power.Amount);
 
         if (EquipmentQueries.GetEquipped<HanBingJian>(Owner, EquipmentSlotType.Weapon) is not null)
         {
@@ -81,6 +85,11 @@ public abstract class ShaCard : MyFirstCard
 
         if (dealtHpDamage)
         {
+            foreach (var power in Owner.Powers.OfType<Powers.LianJiPower>())
+            {
+                await power.OnShaDealtHpDamage(choiceContext);
+            }
+
             if (EquipmentQueries.GetEquipped<FangTianHuaJi>(Owner, EquipmentSlotType.Weapon) is not null)
             {
                 foreach (var other in RuntimeReflection.GetLivingOpponents(Owner).Where(creature => creature != target))

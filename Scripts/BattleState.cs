@@ -18,8 +18,10 @@ internal static class BattleState
     {
         public int TurnToken { get; set; } = int.MinValue;
         public bool NextShaDealsDoubleDamage { get; set; }
+        public int NextShaFlatDamageBonus { get; set; }
         public int NextAttackExtraScorch { get; set; }
         public int ManualShaUsesThisTurn { get; set; }
+        public int ExtraShaUsesThisTurn { get; set; }
         public bool QingLongTriggeredThisTurn { get; set; }
         public DrunkState Drunk { get; set; }
     }
@@ -34,8 +36,10 @@ internal static class BattleState
         {
             state.TurnToken = turnToken;
             state.NextShaDealsDoubleDamage = false;
+            state.NextShaFlatDamageBonus = 0;
             state.NextAttackExtraScorch = 0;
             state.ManualShaUsesThisTurn = 0;
+            state.ExtraShaUsesThisTurn = 0;
             state.QingLongTriggeredThisTurn = false;
         }
 
@@ -54,15 +58,30 @@ internal static class BattleState
 
         var state = GetState(owner, combat);
 
-        return state.ManualShaUsesThisTurn > 0 || history.CardPlaysFinished.Any(entry =>
+        var playsThisTurn = state.ManualShaUsesThisTurn + history.CardPlaysFinished.Count(entry =>
             entry.HappenedThisTurn(combat)
             && entry.CardPlay.Card is Cards.ShaCard
             && entry.CardPlay.Card.Owner == owner);
+
+        return playsThisTurn >= 1 + state.ExtraShaUsesThisTurn;
     }
 
     public static void SetNextShaDealsDoubleDamage(object owner)
     {
         GetState(owner, RuntimeReflection.GetCombatState(owner)).NextShaDealsDoubleDamage = true;
+    }
+
+    public static void AddNextShaFlatDamage(object owner, int amount)
+    {
+        GetState(owner, RuntimeReflection.GetCombatState(owner)).NextShaFlatDamageBonus += amount;
+    }
+
+    public static int TryConsumeNextShaFlatDamage(object owner)
+    {
+        var state = GetState(owner, RuntimeReflection.GetCombatState(owner));
+        var amount = state.NextShaFlatDamageBonus;
+        state.NextShaFlatDamageBonus = 0;
+        return amount;
     }
 
     public static bool TryConsumeNextShaDealsDoubleDamage(object owner)
@@ -122,6 +141,11 @@ internal static class BattleState
     public static void RecordVirtualShaUse(object owner)
     {
         GetState(owner, RuntimeReflection.GetCombatState(owner)).ManualShaUsesThisTurn++;
+    }
+
+    public static void AddExtraShaUsesThisTurn(object owner, int amount)
+    {
+        GetState(owner, RuntimeReflection.GetCombatState(owner)).ExtraShaUsesThisTurn += amount;
     }
 
     public static bool TryConsumeQingLongTrigger(object owner)
