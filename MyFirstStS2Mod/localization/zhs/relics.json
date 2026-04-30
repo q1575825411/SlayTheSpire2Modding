@@ -40,5 +40,20 @@
   "MY_FIRST_ST_S2_MOD_RELIC_FORTRESS_MAP_RELIC.flavor": "守得稳，才敢转守为攻。",
   "MY_FIRST_ST_S2_MOD_RELIC_WINE_POUCH_RELIC.title": "酒囊",
   "MY_FIRST_ST_S2_MOD_RELIC_WINE_POUCH_RELIC.description": "你的“酒”不再消耗。",
-  "MY_FIRST_ST_S2_MOD_RELIC_WINE_POUCH_RELIC.flavor": "酒气不绝，胆气不绝。"
+  "MY_FIRST_ST_S2_MOD_RELIC_WINE_POUCH_RELIC.flavor": "酒气不绝，胆气不绝。",
+  "MY_FIRST_ST_S2_MOD_RELIC_JIN_NANG_CAN_YE_RELIC.title": "锦囊残页",
+  "MY_FIRST_ST_S2_MOD_RELIC_JIN_NANG_CAN_YE_RELIC.description": "每场战斗中，你打出的第一张锦囊牌后，抽1张牌。",
+  "MY_FIRST_ST_S2_MOD_RELIC_JIN_NANG_CAN_YE_RELIC.flavor": "纸页残缺，计谋未尽。",
+  "MY_FIRST_ST_S2_MOD_RELIC_HAO_JIE_RELIC.title": "豪杰",
+  "MY_FIRST_ST_S2_MOD_RELIC_HAO_JIE_RELIC.description": "每场战斗中，你打出的第一张攻击牌后，获得1点力量。",
+  "MY_FIRST_ST_S2_MOD_RELIC_HAO_JIE_RELIC.flavor": "同行一程，也算结义半场。",
+  "MY_FIRST_ST_S2_MOD_RELIC_HAO_JIE_YOU_YI_RELIC.title": "豪杰的友谊",
+  "MY_FIRST_ST_S2_MOD_RELIC_HAO_JIE_YOU_YI_RELIC.description": "这是一次事件联动遗物。携带它进入第二层时，会解锁指定联动事件。",
+  "MY_FIRST_ST_S2_MOD_RELIC_HAO_JIE_YOU_YI_RELIC.flavor": "情分已记，后会自有回响。",
+  "MY_FIRST_ST_S2_MOD_RELIC_ZHENG_ZHAO_LING_RELIC.title": "征召令",
+  "MY_FIRST_ST_S2_MOD_RELIC_ZHENG_ZHAO_LING_RELIC.description": "每场战斗胜利后，额外获得10金币。这是一次事件联动遗物。",
+  "MY_FIRST_ST_S2_MOD_RELIC_ZHENG_ZHAO_LING_RELIC.flavor": "令在身前，去处便不再由你独自决定。",
+  "MY_FIRST_ST_S2_MOD_RELIC_HUANG_JIN_SHAN_YI_RELIC.title": "黄巾善意",
+  "MY_FIRST_ST_S2_MOD_RELIC_HUANG_JIN_SHAN_YI_RELIC.description": "抵消下一次诅咒牌加入牌组。触发后失去此遗物。",
+  "MY_FIRST_ST_S2_MOD_RELIC_HUANG_JIN_SHAN_YI_RELIC.flavor": "乱世里偶有善意，也未必只来自正统。"
 }

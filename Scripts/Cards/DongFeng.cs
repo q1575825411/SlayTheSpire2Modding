@@ -26,10 +26,19 @@ public class DongFeng : MyFirstCard
     {
         foreach (var enemy in CombatState!.GetOpponentsOf(Owner).Where(creature => creature.IsAlive))
         {
-            foreach (var scorch in enemy.Powers.OfType<Powers.ScorchPower>())
+            var scorch = enemy.Powers.OfType<Powers.ScorchPower>().FirstOrDefault();
+
+            if (scorch is null || scorch.Amount <= 0)
             {
-                await MegaCrit.Sts2.Core.Commands.PowerCmd.ModifyAmount(scorch, scorch.Amount, null, this);
+                continue;
             }
+
+            await MegaCrit.Sts2.Core.Commands.PowerCmd.ModifyAmount(
+                scorch,
+                scorch.Amount,
+                null,
+                this
+            );
         }
     }
 

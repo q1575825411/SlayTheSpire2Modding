@@ -61,6 +61,12 @@ internal static class CardPlayRestrictionPatch
             return false;
         }
 
+        if (card is AoHuiCurse or YongHengCurse or LengYanCurse)
+        {
+            CancelPlayCardMethod.Invoke(__instance, []);
+            return false;
+        }
+
         if (card is EquipmentCard equipmentCard && equipmentCard.Owner is not null
             && OtherRelicChecks.HasRelic<FormationChartRelic>(equipmentCard.Owner))
         {

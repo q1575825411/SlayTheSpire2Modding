@@ -312,5 +312,30 @@
   "MY_FIRST_ST_S2_MOD_CARD_JU_SHUI_WEI_YING.title": "据水为营",
   "MY_FIRST_ST_S2_MOD_CARD_JU_SHUI_WEI_YING.description": "IfUpgraded:show:移除目标一半[blue]寒冷[/blue]，向下取整。|移除目标所有[blue]寒冷[/blue]。\n获得1层力量和1层敏捷。",
   "MYFIRSTSTS2MOD_CARD_JU_SHUI_WEI_YING.title": "据水为营",
-  "MYFIRSTSTS2MOD_CARD_JU_SHUI_WEI_YING.description": "IfUpgraded:show:移除目标一半[blue]寒冷[/blue]，向下取整。|移除目标所有[blue]寒冷[/blue]。\n获得1层力量和1层敏捷。"
+  "MYFIRSTSTS2MOD_CARD_JU_SHUI_WEI_YING.description": "IfUpgraded:show:移除目标一半[blue]寒冷[/blue]，向下取整。|移除目标所有[blue]寒冷[/blue]。\n获得1层力量和1层敏捷。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_AO_HUI_CURSE.title": "懊悔",
+  "MY_FIRST_ST_S2_MOD_CARD_AO_HUI_CURSE.description": "无法打出。\n抽到时：获得1层[gold]虚弱[/gold]。\n消耗。",
+  "MYFIRSTSTS2MOD_CARD_AO_HUI_CURSE.title": "懊悔",
+  "MYFIRSTSTS2MOD_CARD_AO_HUI_CURSE.description": "无法打出。\n抽到时：获得1层[gold]虚弱[/gold]。\n消耗。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_YONG_HENG_CURSE.title": "永恒",
+  "MY_FIRST_ST_S2_MOD_CARD_YONG_HENG_CURSE.description": "无法打出。\n不能被删除。\n抽到时：失去3点生命。\n消耗。",
+  "MYFIRSTSTS2MOD_CARD_YONG_HENG_CURSE.title": "永恒",
+  "MYFIRSTSTS2MOD_CARD_YONG_HENG_CURSE.description": "无法打出。\n不能被删除。\n抽到时：失去3点生命。\n消耗。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_LENG_YAN_CURSE.title": "冷眼",
+  "MY_FIRST_ST_S2_MOD_CARD_LENG_YAN_CURSE.description": "无法打出。\n抽到时：失去1点力量。\n消耗。",
+  "MYFIRSTSTS2MOD_CARD_LENG_YAN_CURSE.title": "冷眼",
+  "MYFIRSTSTS2MOD_CARD_LENG_YAN_CURSE.description": "无法打出。\n抽到时：失去1点力量。\n消耗。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_TAO_YUAN_JIE_YI.title": "桃园结义",
+  "MY_FIRST_ST_S2_MOD_CARD_TAO_YUAN_JIE_YI.description": "将1张“桃”加入你的手牌。",
+  "MYFIRSTSTS2MOD_CARD_TAO_YUAN_JIE_YI.title": "桃园结义",
+  "MYFIRSTSTS2MOD_CARD_TAO_YUAN_JIE_YI.description": "将1张“桃”加入你的手牌。",
+
+  "MY_FIRST_ST_S2_MOD_CARD_QI_QIAO.title": "奇巧",
+  "MY_FIRST_ST_S2_MOD_CARD_QI_QIAO.description": "你的下一张 Skill 牌额外生效一次。",
+  "MYFIRSTSTS2MOD_CARD_QI_QIAO.title": "奇巧",
+  "MYFIRSTSTS2MOD_CARD_QI_QIAO.description": "你的下一张 Skill 牌额外生效一次。"
 }

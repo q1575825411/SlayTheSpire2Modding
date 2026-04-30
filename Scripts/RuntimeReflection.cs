@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MyFirstStS2Mod.Scripts.Characters;
 
@@ -90,6 +91,22 @@ internal static class RuntimeReflection
     public static bool HasCardInHand<TCard>(object? owner) where TCard : CardModel
     {
         return GetHandCards(owner).Any(card => card is TCard);
+    }
+
+    public static bool RunHasRelic<TRelic>(object? runState) where TRelic : RelicModel
+    {
+        if (runState is null)
+        {
+            return false;
+        }
+
+        var players = runState.GetType().GetProperty("Players")?.GetValue(runState) as IEnumerable;
+        if (players is null)
+        {
+            return false;
+        }
+
+        return players.Cast<object?>().Any(player => GetOwnedRelics(player).Any(relic => relic is TRelic));
     }
 
     public static CardModel? FindFirstCardInHand<TCard>(object? owner, CardModel? excluding = null) where TCard : CardModel
@@ -325,6 +342,32 @@ internal static class RuntimeReflection
             return false;
         }
 
+        if (amount < 0)
+        {
+            var maxHp = GetMaxHp(creature);
+            foreach (var propertyName in new[] { "CurrentHp", "CurrentHealth", "Hp", "Health" })
+            {
+                var property = creature.GetType().GetProperty(propertyName);
+                if (property?.CanWrite != true)
+                {
+                    continue;
+                }
+
+                var currentValue = property.GetValue(creature);
+                if (currentValue is decimal decimalValue && decimalValue > maxHp)
+                {
+                    property.SetValue(creature, maxHp);
+                    break;
+                }
+
+                if (currentValue is int intValue && intValue > maxHp)
+                {
+                    property.SetValue(creature, (int)maxHp);
+                    break;
+                }
+            }
+        }
+
         if (alsoHeal)
         {
             foreach (var propertyName in new[] { "CurrentHp", "CurrentHealth", "Hp", "Health" })
@@ -353,11 +396,72 @@ internal static class RuntimeReflection
         return true;
     }
 
+    public static bool TryRestoreToFullHp(object? creature)
+    {
+        if (creature is null)
+        {
+            return false;
+        }
+
+        var maxHp = GetMaxHp(creature);
+        if (maxHp <= 0)
+        {
+            return false;
+        }
+
+        foreach (var propertyName in new[] { "CurrentHp", "CurrentHealth", "Hp", "Health" })
+        {
+            var property = creature.GetType().GetProperty(propertyName);
+            if (property?.CanWrite != true)
+            {
+                continue;
+            }
+
+            if (property.PropertyType == typeof(decimal))
+            {
+                property.SetValue(creature, maxHp);
+                return true;
+            }
+
+            if (property.PropertyType == typeof(int))
+            {
+                property.SetValue(creature, (int)maxHp);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static int GetCurrentActIndex(object? owner)
     {
         var runState = owner?.GetType().GetProperty("RunState")?.GetValue(owner)
             ?? owner?.GetType().GetProperty("Run")?.GetValue(owner);
 
+        if (runState is null)
+        {
+            return -1;
+        }
+
+        foreach (var propertyName in new[] { "CurrentActIndex", "ActIndex", "CurrentAct", "ActNumber" })
+        {
+            var value = runState.GetType().GetProperty(propertyName)?.GetValue(runState);
+            if (value is int intValue)
+            {
+                return intValue;
+            }
+
+            if (value is decimal decimalValue)
+            {
+                return (int)decimalValue;
+            }
+        }
+
+        return -1;
+    }
+
+    public static int GetRunActIndex(object? runState)
+    {
         if (runState is null)
         {
             return -1;
@@ -740,6 +844,48 @@ internal static class RuntimeReflection
         return TryAddCardToHand(card, owner, exhaust, retain);
     }
 
+    public static bool TryAddCardToMasterDeck<TCard>(object? owner, bool upgraded = false)
+        where TCard : CardModel, new()
+    {
+        var card = new TCard();
+        if (upgraded)
+        {
+            TryUpgradeCard(card);
+        }
+
+        return TryAddCardToMasterDeck(card, owner);
+    }
+
+    public static bool TryAddCardToMasterDeck(CardModel card, object? owner)
+    {
+        var list = GetMasterDeckCardList(owner);
+        if (list is null)
+        {
+            return false;
+        }
+
+        if (owner is not null
+            && card is Cards.MyFirstCard
+            && card.GetType().Name.Contains("Curse", StringComparison.OrdinalIgnoreCase)
+            && GetOwnedRelics(owner).Any(relic => relic is Relics.HuangJinShanYiRelic))
+        {
+            TryRemoveOwnedRelic<Relics.HuangJinShanYiRelic>(owner);
+            return false;
+        }
+
+        TrySetWritableProperty(card, "Owner", owner);
+        TrySetWritableProperty(card, "CreatureOwner", owner);
+        TrySetWritableProperty(card, "CombatState", GetCombatState(owner));
+        TrySetWritableProperty(card, "PlayerCombatState", GetPlayerCombatState(owner));
+        list.Add(card);
+        return true;
+    }
+
+    public static List<CardModel> GetMasterDeckSnapshot(object? owner)
+    {
+        return GetMasterDeckCards(owner);
+    }
+
     public static bool TryAddCardToHand(CardModel card, object? owner, bool exhaust = false, bool retain = false)
     {
         if (owner is null)
@@ -811,6 +957,127 @@ internal static class RuntimeReflection
         }
 
         return false;
+    }
+
+    public static bool TryModifyPlayerGold(object? owner, int delta)
+    {
+        if (owner is null || delta == 0)
+        {
+            return delta == 0;
+        }
+
+        foreach (var target in new[] { owner, owner.GetType().GetProperty("RunState")?.GetValue(owner) })
+        {
+            if (target is null)
+            {
+                continue;
+            }
+
+            foreach (var propertyName in new[] { "Gold", "CurrentGold" })
+            {
+                var property = target.GetType().GetProperty(propertyName);
+                if (property?.CanRead != true || property.CanWrite != true)
+                {
+                    continue;
+                }
+
+                var currentValue = property.GetValue(target);
+                if (currentValue is int intValue)
+                {
+                    if (delta < 0 && intValue + delta < 0)
+                    {
+                        return false;
+                    }
+
+                    property.SetValue(target, intValue + delta);
+                    return true;
+                }
+
+                if (currentValue is decimal decimalValue)
+                {
+                    if (delta < 0 && decimalValue + delta < 0)
+                    {
+                        return false;
+                    }
+
+                    property.SetValue(target, decimalValue + delta);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static bool TryUpgradeRandomCardInMasterDeck(object? owner)
+    {
+        var cards = GetMasterDeckCards(owner)
+            .Where(card => !IsCardUpgraded(card))
+            .ToList();
+
+        if (cards.Count == 0)
+        {
+            return false;
+        }
+
+        TryUpgradeCard(cards[Random.Shared.Next(cards.Count)]);
+        return true;
+    }
+
+    public static bool TryRemoveCardFromMasterDeck(object? owner, CardModel card)
+    {
+        var list = GetMasterDeckCardList(owner);
+        if (list is null || !list.Contains(card))
+        {
+            return false;
+        }
+
+        list.Remove(card);
+        return true;
+    }
+
+    public static bool TryRemoveOwnedRelic<TRelic>(object? owner) where TRelic : RelicModel
+    {
+        if (owner is null)
+        {
+            return false;
+        }
+
+        if (owner.GetType().GetProperty("Relics")?.GetValue(owner) is not IList relics)
+        {
+            return false;
+        }
+
+        for (var i = 0; i < relics.Count; i++)
+        {
+            if (relics[i] is not TRelic)
+            {
+                continue;
+            }
+
+            relics.RemoveAt(i);
+            return true;
+        }
+
+        return false;
+    }
+
+    public static bool TryAddRelic<TRelic>(object? owner) where TRelic : RelicModel, new()
+    {
+        if (owner is null)
+        {
+            return false;
+        }
+
+        if (owner.GetType().GetProperty("Relics")?.GetValue(owner) is not IList relics)
+        {
+            return false;
+        }
+
+        var relic = ModelDb.Relic<TRelic>().ToMutable();
+        TrySetWritableProperty(relic, "Owner", owner);
+        relics.Add(relic);
+        return true;
     }
 
     public static bool TryEndTurn(PlayerChoiceContext choiceContext, object? owner)
@@ -965,6 +1232,33 @@ internal static class RuntimeReflection
         }
 
         return [];
+    }
+
+    private static IList? GetMasterDeckCardList(object? owner)
+    {
+        foreach (var target in new[] { owner, owner?.GetType().GetProperty("RunState")?.GetValue(owner) })
+        {
+            if (target is null)
+            {
+                continue;
+            }
+
+            foreach (var propertyName in new[] { "MasterDeck", "Deck", "Cards" })
+            {
+                var container = target.GetType().GetProperty(propertyName)?.GetValue(target);
+                if (container is IList directList)
+                {
+                    return directList;
+                }
+
+                if (container?.GetType().GetProperty("Cards")?.GetValue(container) is IList nestedList)
+                {
+                    return nestedList;
+                }
+            }
+        }
+
+        return null;
     }
 
     private static bool TryMoveCardBetweenPiles(

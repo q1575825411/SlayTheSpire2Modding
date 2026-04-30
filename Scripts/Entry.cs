@@ -22,8 +22,12 @@ public class Entry
         harmony.PatchAll(assembly);
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
+        AoHuiCurseRuntime.Initialize();
+        Act2CurseRuntime.Initialize();
+        QiQiaoRuntime.Initialize();
         IdentityBadgeRuntime.Initialize();
         OtherRelicRuntime.Initialize();
+        EventRelicRuntime.Initialize();
         RitsuLibFramework.CreateContentPack(ModId)
             .Character<SoldierCharacter>(entry => entry
                 .AddStartingCard<Sha>(4)
@@ -45,6 +49,11 @@ public class Entry
             .Relic<SoldierRelicPool, OfficialSealRelic>()
             .Relic<SoldierRelicPool, FortressMapRelic>()
             .Relic<SoldierRelicPool, WinePouchRelic>()
+            .Relic<EventRelicPool, JinNangCanYeRelic>()
+            .Relic<EventRelicPool, HaoJieRelic>()
+            .Relic<EventRelicPool, HaoJieYouYiRelic>()
+            .Relic<EventRelicPool, ZhengZhaoLingRelic>()
+            .Relic<EventRelicPool, HuangJinShanYiRelic>()
             .Apply();
         Logger.LogInfo("MyFirstStS2Mod initialized.");
     }
