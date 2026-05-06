@@ -12,8 +12,10 @@ public class Jiu : MyFirstCard
     private const CardType Type = CardType.Skill;
     private const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetType = TargetType.None;
+    private bool _retainOnUpgrade;
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+        _retainOnUpgrade ? [CardKeyword.Retain, CardKeyword.Exhaust] : [CardKeyword.Exhaust];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [
         HoverTipFactory.FromPower<Powers.DrunkPower>()
@@ -33,5 +35,6 @@ public class Jiu : MyFirstCard
     protected override void OnUpgrade()
     {
         Cost = 0;
+        _retainOnUpgrade = true;
     }
 }
