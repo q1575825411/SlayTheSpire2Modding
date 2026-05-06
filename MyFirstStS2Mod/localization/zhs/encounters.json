@@ -1,1 +1,16 @@
-{}
+{
+  "MY_FIRST_ST_S2_MOD_DANG_HUAN_ENCOUNTER.title": "党宦",
+  "MY_FIRST_ST_S2_MOD_DANG_HUAN_ENCOUNTER.loss": "{character}被[gold]{encounter}[/gold]压垮，宫廷阴影再度合拢。",
+
+  "MY_FIRST_ST_S2_MOD_HE_JIN_ENCOUNTER.title": "何进",
+  "MY_FIRST_ST_S2_MOD_HE_JIN_ENCOUNTER.loss": "{character}被[gold]{encounter}[/gold]的兵权与军令击溃。",
+
+  "MY_FIRST_ST_S2_MOD_QING_YI_KUI_SHOU_ENCOUNTER.title": "清议魁首",
+  "MY_FIRST_ST_S2_MOD_QING_YI_KUI_SHOU_ENCOUNTER.loss": "{character}被[gold]{encounter}[/gold]的清议与自辩压得难以立足。",
+
+  "MY_FIRST_ST_S2_MOD_JIN_WU_WEI_ENCOUNTER.title": "金吾卫",
+  "MY_FIRST_ST_S2_MOD_JIN_WU_WEI_ENCOUNTER.loss": "{character}被[gold]{encounter}[/gold]列阵镇压，倒在宫门前。",
+
+  "MY_FIRST_ST_S2_MOD_HUANG_MEN_XIAO_GUI_ENCOUNTER.title": "黄门小鬼",
+  "MY_FIRST_ST_S2_MOD_HUANG_MEN_XIAO_GUI_ENCOUNTER.loss": "{character}被[gold]{encounter}[/gold]围困戏耍，终究没能追回赃款。"
+}

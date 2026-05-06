@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[node name="DangHuanEncounter" type="Node2D"]
+
+[node name="boss" type="Marker2D" parent="."]
+position = Vector2(0, 8)
+
+[node name="minion_left" type="Marker2D" parent="."]
+position = Vector2(-220, 56)
+
+[node name="minion_right" type="Marker2D" parent="."]
+position = Vector2(220, 56)
+
+[node name="reserve_left" type="Marker2D" parent="."]
+position = Vector2(-360, 92)
+
+[node name="reserve_right" type="Marker2D" parent="."]
+position = Vector2(360, 92)

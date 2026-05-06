@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MyFirstStS2Mod.Scripts.Cards;
 using MyFirstStS2Mod.Scripts.Equipment;
+using MyFirstStS2Mod.Scripts.Powers;
 using MyFirstStS2Mod.Scripts.Relics;
 
 namespace MyFirstStS2Mod.Scripts.Patches;
@@ -26,6 +27,12 @@ internal static class CardPlayRestrictionPatch
         {
             return true;
         }
+
+        var ownerCreature = card.Owner?.GetType().GetProperty("Creature")?.GetValue(card.Owner);
+        var forbidAttackPower = RuntimeReflection.GetPower<QingYiForbidAttackPower>(card.Owner)
+            ?? RuntimeReflection.GetPower<QingYiForbidAttackPower>(ownerCreature);
+        var forbidSkillPower = RuntimeReflection.GetPower<QingYiForbidSkillPower>(card.Owner)
+            ?? RuntimeReflection.GetPower<QingYiForbidSkillPower>(ownerCreature);
 
         if (card is ShaCard && card.Owner?.Powers.OfType<Powers.ZhanChangPower>().Any() == true)
         {
@@ -62,6 +69,14 @@ internal static class CardPlayRestrictionPatch
         }
 
         if (card is AoHuiCurse or YongHengCurse or LengYanCurse)
+        {
+            CancelPlayCardMethod.Invoke(__instance, []);
+            return false;
+        }
+
+        if (card.Owner is not null
+            && ((card.Type == CardType.Attack && forbidAttackPower is not null)
+                || (card.Type == CardType.Skill && forbidSkillPower is not null)))
         {
             CancelPlayCardMethod.Invoke(__instance, []);
             return false;

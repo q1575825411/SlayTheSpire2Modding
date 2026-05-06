@@ -5,6 +5,7 @@ using STS2RitsuLib;
 using STS2RitsuLib.Interop;
 using MyFirstStS2Mod.Scripts.Cards;
 using MyFirstStS2Mod.Scripts.Characters;
+using MyFirstStS2Mod.Scripts.Monsters;
 using MyFirstStS2Mod.Scripts.Relics;
 
 namespace MyFirstStS2Mod.Scripts;
@@ -28,12 +29,14 @@ public class Entry
         IdentityBadgeRuntime.Initialize();
         OtherRelicRuntime.Initialize();
         EventRelicRuntime.Initialize();
+        MonsterRuntime.Initialize();
         RitsuLibFramework.CreateContentPack(ModId)
             .Character<SoldierCharacter>(entry => entry
-                .AddStartingCard<Sha>(4)
+                .AddStartingCard<Sha>(3)
                 .AddStartingCard<Shan>(4)
-                .AddStartingCard<Tao>(1)
-                .AddStartingCard<Jiu>(1)
+                .AddStartingCard<Duel>(1)
+                .AddStartingCard<BeiZhan>(1)
+                .AddStartingCard<XuShiDaiFa>(1)
                 .AddStartingRelic<IdentityBadgeRelic>())
             .Relic<SoldierRelicPool, IdentityBadgeRelic>()
             .Relic<SoldierRelicPool, FireOilRelic>()

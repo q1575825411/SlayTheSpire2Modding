@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MyFirstStS2Mod.Scripts.Characters;
@@ -40,6 +41,25 @@ internal static class RuntimeReflection
                 {
                     return value;
                 }
+            }
+        }
+
+        return null;
+    }
+
+    public static object? GetCreatureModel(object? creature)
+    {
+        if (creature is null)
+        {
+            return null;
+        }
+
+        foreach (var propertyName in new[] { "Model", "MonsterModel", "CharacterModel", "BaseModel" })
+        {
+            var value = creature.GetType().GetProperty(propertyName)?.GetValue(creature);
+            if (value is not null)
+            {
+                return value;
             }
         }
 
@@ -539,6 +559,59 @@ internal static class RuntimeReflection
             .ToList();
     }
 
+    public static List<Creature> GetCombatCreatures(object? combatState)
+    {
+        if (combatState is null)
+        {
+            return [];
+        }
+
+        foreach (var propertyName in new[] { "Creatures", "CombatCreatures", "Monsters", "AllCreatures" })
+        {
+            if (combatState.GetType().GetProperty(propertyName)?.GetValue(combatState) is IEnumerable creatures)
+            {
+                var list = creatures.OfType<Creature>().ToList();
+                if (list.Count > 0)
+                {
+                    return list;
+                }
+            }
+        }
+
+        return [];
+    }
+
+    public static List<Creature> GetLivingAllies(object? owner, bool includeSelf = false)
+    {
+        if (owner is not Creature creature)
+        {
+            return [];
+        }
+
+        return GetCombatCreatures(GetCombatState(owner))
+            .Where(other => other.IsAlive && other.Side == creature.Side && (includeSelf || other != creature))
+            .ToList();
+    }
+
+    public static object? GetRunState(object? source)
+    {
+        if (source is null)
+        {
+            return null;
+        }
+
+        foreach (var target in new[] { source, GetPlayerCombatState(source), GetCombatState(source) })
+        {
+            var runState = target?.GetType().GetProperty("RunState")?.GetValue(target);
+            if (runState is not null)
+            {
+                return runState;
+            }
+        }
+
+        return null;
+    }
+
     public static async Task<bool> TryDiscardCards(
         PlayerChoiceContext choiceContext,
         object? owner,
@@ -1009,6 +1082,33 @@ internal static class RuntimeReflection
         return false;
     }
 
+    public static int GetCurrentGold(object? owner)
+    {
+        foreach (var target in new[] { owner, GetRunState(owner) })
+        {
+            if (target is null)
+            {
+                continue;
+            }
+
+            foreach (var propertyName in new[] { "Gold", "CurrentGold" })
+            {
+                var value = target.GetType().GetProperty(propertyName)?.GetValue(target);
+                if (value is int intValue)
+                {
+                    return intValue;
+                }
+
+                if (value is decimal decimalValue)
+                {
+                    return (int)decimalValue;
+                }
+            }
+        }
+
+        return 0;
+    }
+
     public static bool TryUpgradeRandomCardInMasterDeck(object? owner)
     {
         var cards = GetMasterDeckCards(owner)
@@ -1163,6 +1263,171 @@ internal static class RuntimeReflection
             {
                 await task;
                 return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static string? GetEncounterSlotId(object? creature)
+    {
+        if (creature is null)
+        {
+            return null;
+        }
+
+        foreach (var propertyName in new[] { "EncounterSlotId", "AssignedSlotId", "SlotId", "SlotName" })
+        {
+            var value = creature.GetType().GetProperty(propertyName)?.GetValue(creature);
+            if (value is string stringValue && !string.IsNullOrWhiteSpace(stringValue))
+            {
+                return stringValue;
+            }
+        }
+
+        return null;
+    }
+
+    public static string? FindFirstEmptyEncounterSlot(object? combatState, IReadOnlyList<string> preferredSlots)
+    {
+        if (preferredSlots.Count == 0)
+        {
+            return null;
+        }
+
+        var usedSlots = GetCombatCreatures(combatState)
+            .Select(GetEncounterSlotId)
+            .OfType<string>()
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        return preferredSlots.FirstOrDefault(slot => !usedSlots.Contains(slot));
+    }
+
+    public static bool TrySummonMonsterToCombat<TMonster>(object? combatState, string? slot = null)
+        where TMonster : MonsterModel, new()
+    {
+        if (combatState is null)
+        {
+            return false;
+        }
+
+        var monster = ModelDb.Monster<TMonster>().ToMutable();
+        TrySetWritableProperty(monster, "CombatState", combatState);
+
+        foreach (var target in new[] { combatState, combatState.GetType().GetProperty("Room")?.GetValue(combatState) })
+        {
+            if (target is null)
+            {
+                continue;
+            }
+
+            foreach (var methodName in new[] { "SummonMonster", "SpawnMonster", "AddMonster", "Summon", "SpawnCreature", "AddCreature" })
+            {
+                foreach (var method in target.GetType().GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                             .Where(candidate => candidate.Name == methodName))
+                {
+                    var parameters = method.GetParameters();
+                    try
+                    {
+                        if (parameters.Length == 1 && parameters[0].ParameterType.IsAssignableFrom(monster.GetType()))
+                        {
+                            method.Invoke(target, [monster]);
+                            return true;
+                        }
+
+                        if (parameters.Length == 2
+                            && parameters[0].ParameterType.IsAssignableFrom(monster.GetType())
+                            && (slot is null || parameters[1].ParameterType == typeof(string)))
+                        {
+                            method.Invoke(target, [monster, slot]);
+                            return true;
+                        }
+                    }
+                    catch
+                    {
+                        // ignore and continue probing other overloads
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static bool TryEscapeCreature(Creature creature)
+    {
+        foreach (var target in new object?[] { creature, GetCombatState(creature) })
+        {
+            if (target is null)
+            {
+                continue;
+            }
+
+            foreach (var methodName in new[] { "Escape", "TryEscape", "LeaveCombat", "RemoveCreature" })
+            {
+                foreach (var method in target.GetType().GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                             .Where(candidate => candidate.Name == methodName))
+                {
+                    var parameters = method.GetParameters();
+                    try
+                    {
+                        if (parameters.Length == 0)
+                        {
+                            method.Invoke(target, null);
+                            return true;
+                        }
+
+                        if (parameters.Length == 1 && parameters[0].ParameterType.IsAssignableFrom(creature.GetType()))
+                        {
+                            method.Invoke(target, [creature]);
+                            return true;
+                        }
+                    }
+                    catch
+                    {
+                        // ignore and continue probing other overloads
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static bool TryForceKillCreature(Creature creature)
+    {
+        foreach (var target in new object?[] { creature, GetCombatState(creature) })
+        {
+            if (target is null)
+            {
+                continue;
+            }
+
+            foreach (var methodName in new[] { "Die", "Kill", "DestroyCreature", "RemoveCreature" })
+            {
+                foreach (var method in target.GetType().GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                             .Where(candidate => candidate.Name == methodName))
+                {
+                    var parameters = method.GetParameters();
+                    try
+                    {
+                        if (parameters.Length == 0)
+                        {
+                            method.Invoke(target, null);
+                            return true;
+                        }
+
+                        if (parameters.Length == 1 && parameters[0].ParameterType.IsAssignableFrom(creature.GetType()))
+                        {
+                            method.Invoke(target, [creature]);
+                            return true;
+                        }
+                    }
+                    catch
+                    {
+                        // ignore and continue probing other overloads
+                    }
+                }
             }
         }
 

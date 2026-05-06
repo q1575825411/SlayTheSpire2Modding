@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[node name="HuangMenXiaoGuiEncounter" type="Node2D"]
+
+[node name="left" type="Marker2D" parent="."]
+position = Vector2(-240, 40)
+
+[node name="center" type="Marker2D" parent="."]
+position = Vector2(0, 72)
+
+[node name="right" type="Marker2D" parent="."]
+position = Vector2(240, 40)
